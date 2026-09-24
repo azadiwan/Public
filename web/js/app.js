@@ -48,10 +48,10 @@
     if (i.error) return i.error;
     if (i.key === "missing") return `API key not found in the ${i.environment} environment. Add ANTHROPIC_API_KEY for ${i.environment} in Vercel and redeploy.`;
     if (i.key && i.key !== "present") return `API key ${i.key}.`;
-    if (i.sdk && i.sdk !== "ok") return `AI library ${i.sdk}`;
+    if (i.sdk && i.sdk !== "ok") return `Generation library ${i.sdk}`;
     return "Checking…";
   };
-  const aiBadge = () => `<span class="ai-badge ${S.ai ? "" : "off"}" title="${esc(S.ai ? "AI generation is connected" : "Using the built-in library. " + aiReason())}">${S.ai ? "● AI connected" : "○ Library mode"}</span>`;
+  const aiBadge = () => `<span class="ai-badge ${S.ai ? "" : "off"}" title="${esc(S.ai ? "Full lesson plan generation is on" : "Using the built-in template library. " + aiReason())}">${S.ai ? "● Full lesson plans on" : "○ Template mode"}</span>`;
 
   /* ---------- Router ---------- */
   const currentRoute = () => (location.hash.replace(/^#\/?/, "").split(/[#/?]/)[0] || "home");
@@ -95,7 +95,7 @@
             <div class="chips">${topics.map(([name, t]) => `<button class="pick ${name === b.topic ? "on" : ""}" data-act="topic" data-v="${esc(name)}">${esc(name)} <small class="muted">· gr ${t.grades}</small></button>`).join("")}</div>
             <div class="mt"><label class="field" for="topicInput">Or type your own topic</label>
               <input class="input" id="topicInput" data-bind-build="topic" value="${esc(b.topic)}" placeholder="e.g. Volcanoes, The Lewis & Clark expedition, Similes and metaphors, Spanish food vocabulary" />
-              <p class="hint" id="topicHint" style="margin:8px 0 0">${inLib ? "✅ Ready-made topic: comes with real content, vocabulary and questions." : S.ai ? "✨ Custom topic: AI will write the content." : "✏️ Custom topic: we'll build the full structure with ✏️ placeholders for you to fill in. Connect AI to have the content written for you."}</p></div></div>
+              <p class="hint" id="topicHint" style="margin:8px 0 0">${inLib ? "✅ Ready-made topic: comes with real content, vocabulary and questions." : S.ai ? "✨ Custom topic: we'll generate a full lesson plan for it." : "✏️ Custom topic: we'll build the full structure with ✏️ placeholders for you to fill in. Turn on full lesson plans to have it written for you."}</p></div></div>
 
           <div class="card"><h2><span class="n">4</span>Length</h2>
             <div class="seg" role="tablist"><button class="${b.mode === "lecture" ? "on" : ""}" data-act="mode" data-v="lecture">Single lesson</button><button class="${b.mode === "unit" ? "on" : ""}" data-act="mode" data-v="unit">Curriculum unit</button></div>
@@ -120,7 +120,7 @@
             <textarea class="input" data-bind-build="notes" placeholder="State standard codes (e.g. TEKS 5.3A), class needs (e.g. 6 English learners, co-taught), materials you have, or topics to emphasize…">${esc(b.notes)}</textarea>
             <div class="row mt">
               <label class="toggle"><input type="checkbox" data-check-build="differentiation" ${b.differentiation ? "checked" : ""}/> Include differentiation</label>
-              <label class="toggle" title="${S.ai ? "" : "Not connected. See README to enable."}"><input type="checkbox" data-check-build="useAI" ${b.useAI && S.ai ? "checked" : ""} ${S.ai ? "" : "disabled"}/> Use AI to write custom content</label>
+              <label class="toggle" title="${S.ai ? "" : "Not available yet on this site."}"><input type="checkbox" data-check-build="useAI" ${b.useAI && S.ai ? "checked" : ""} ${S.ai ? "" : "disabled"}/> Generate a full lesson plan (custom-written for your topic)</label>
             </div></div>
         </div>
 
@@ -147,12 +147,12 @@
     const opts = { subject: b.subject, grade: b.grade, topic: b.topic.trim(), mode: b.mode, minutes: +b.minutes, days: +b.days, pedagogy: b.pedagogy, theme: b.theme, standardsNote: "", notes: b.notes, differentiation: b.differentiation };
     let lesson;
     if (b.useAI && S.ai) {
-      busy(true, "Writing your lesson with AI…", b.mode === "unit" ? "Full units can take a minute or two." : "Usually 20–40 seconds.");
+      busy(true, "Generating your full lesson plan…", b.mode === "unit" ? "Full units can take a minute or two." : "Usually 20–40 seconds.");
       try {
         const res = await App.ai.generate(opts);
         lesson = App.normalizeLesson(res.lesson, { ...opts, source: "ai" });
       } catch (e) {
-        toast(`AI unavailable (${e.message}). Built from the library instead.`, true);
+        toast(`Couldn't generate the full lesson plan (${e.message}). Built from the template library instead.`, true);
       }
     }
     if (!lesson) lesson = App.buildLesson(opts);
@@ -179,7 +179,7 @@
     const ok = Math.abs(tot - tgt) <= Math.max(2, tgt * 0.05);
     return `<span class="chip ${ok ? "time-ok" : "time-warn"}" id="timeChip">⏱ ${tot} / ${tgt} min ${ok ? "✓" : tot > tgt ? "· over" : "· under"}</span>`;
   }
-  const sourceLabel = { library: "📚 Library content", template: "✏️ Template, needs your edits", ai: "✨ AI-written", upload: "📤 From your upload" };
+  const sourceLabel = { library: "📚 Library content", template: "✏️ Template, needs your edits", ai: "✨ Full lesson plan", upload: "📤 From your upload" };
 
   function renderEditor() {
     const l = S.lesson;
@@ -210,7 +210,7 @@
         ${timeChip(l)}
         <span class="chip">${sourceLabel[l.source] || ""}</span>
       </div>
-      ${l.needsReview ? `<div class="banner">This topic isn't in the built-in library yet, so the full lesson structure, timing, and supports are built for you. Replace the <b>✏️ placeholders</b> with your content${S.ai ? ", or rebuild with AI turned on" : ""}.</div>` : ""}
+      ${l.needsReview ? `<div class="banner">This topic isn't in the built-in library yet, so the full lesson structure, timing, and supports are built for you. Replace the <b>✏️ placeholders</b> with your content${S.ai ? ", or rebuild with “Generate a full lesson plan” turned on" : ""}.</div>` : ""}
       <div class="tabs">
         <button class="${S.tab === "plan" ? "on" : ""}" data-act="tab" data-v="plan">Lesson plan</button>
         <button class="${S.tab === "slides" ? "on" : ""}" data-act="tab" data-v="slides">Slides preview</button>
@@ -271,7 +271,7 @@
           <button class="icon-btn" data-act="b-down" data-v="${b.id}" ${i === n - 1 ? "disabled" : ""} title="Move down">↓</button>
           <button class="icon-btn" data-act="b-dup" data-v="${b.id}" title="Duplicate">⧉</button>
           <button class="icon-btn" data-act="b-simplify" data-v="${b.id}" title="Simplify the wording">Aa↓</button>
-          ${S.ai ? `<button class="icon-btn" data-act="b-ai" data-v="${b.id}" title="Improve with AI">✨</button>` : ""}
+          ${S.ai ? `<button class="icon-btn" data-act="b-ai" data-v="${b.id}" title="Rewrite this block">✨</button>` : ""}
           <button class="icon-btn" data-act="b-del" data-v="${b.id}" title="Delete">🗑</button>
         </div>
       </div>
@@ -450,7 +450,7 @@
           </div>
           <div class="row mt">
             <button class="btn btn-primary" data-act="optimize">⚡ Build an improved version</button>
-            ${S.ai ? `<button class="btn btn-dark" data-act="ai-improve">✨ Deep improve with AI</button>` : `<span class="hint" style="margin:0">Connect AI for a full rewrite that keeps your voice.</span>`}
+            ${S.ai ? `<button class="btn btn-dark" data-act="ai-improve">✨ Rewrite as a full lesson plan</button>` : ``}
           </div></div>
       </div>
     </div>`;
@@ -491,16 +491,16 @@
     const I = S.improve;
     let text = I.doc.text;
     if (text.length > App.MAX_AI_CHARS) {
-      if (!confirm(`This file is long (${Math.round(text.length / 1000)}k characters). AI will read the first ${App.MAX_AI_CHARS / 1000}k characters. Continue?`)) return;
+      if (!confirm(`This file is long (${Math.round(text.length / 1000)}k characters). We'll use the first ${App.MAX_AI_CHARS / 1000}k characters. Continue?`)) return;
       text = text.slice(0, App.MAX_AI_CHARS);
     }
-    busy(true, "Improving your lesson with AI…", "Usually 30–60 seconds.");
+    busy(true, "Rewriting your lesson as a full lesson plan…", "Usually 30–60 seconds.");
     try {
       const res = await App.ai.improve({ kind: "document", text, settings: I.s, analysis: { score: I.analysis.score, suggestions: I.analysis.suggestions } });
       const lesson = App.normalizeLesson(res.lesson, { ...I.s, source: "upload", topic: I.doc.units[0] && I.doc.units[0].title });
       busy(false);
       openLesson(lesson);
-    } catch (e) { busy(false); toast(`AI improve failed: ${e.message}`, true); }
+    } catch (e) { busy(false); toast(`Rewrite failed: ${e.message}`, true); }
   }
 
   /* ---------- Library ---------- */
@@ -588,7 +588,7 @@
       }
       case "b-ai": {
         const [s, i] = findBlock(v);
-        const instruction = prompt("How should AI improve this block? (e.g. 'more engaging', 'add a real-world example', 'simplify for grade 3', 'translate to Spanish')", "Make it more engaging and add a concrete example");
+        const instruction = prompt("How should we rewrite this block? (e.g. 'more engaging', 'add a real-world example', 'simplify for grade 3', 'translate to Spanish')", "Make it more engaging and add a concrete example");
         if (!instruction) break;
         busy(true, "Improving this block…");
         try {
@@ -626,7 +626,7 @@
       if (t.dataset.bindBuild === "topic") {
         const st = $("#sumTopic"); if (st) st.textContent = t.value || "—";
         const hint = $("#topicHint"); const inLib = !!App.findTopic(b.subject, t.value);
-        if (hint) hint.textContent = inLib ? "✅ Ready-made topic: comes with real content, vocabulary and questions." : S.ai ? "✨ Custom topic: AI will write the content." : "✏️ Custom topic: we'll build the full structure with ✏️ placeholders for you to fill in. Connect AI to have the content written for you.";
+        if (hint) hint.textContent = inLib ? "✅ Ready-made topic: comes with real content, vocabulary and questions." : S.ai ? "✨ Custom topic: we'll generate a full lesson plan for it." : "✏️ Custom topic: we'll build the full structure with ✏️ placeholders for you to fill in. Turn on full lesson plans to have it written for you.";
         document.querySelectorAll('[data-act="topic"]').forEach((c) => c.classList.toggle("on", c.dataset.v === t.value));
       }
       return;

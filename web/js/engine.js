@@ -289,17 +289,17 @@ App.ai = {
       const j = r.ok ? await r.json() : null;
       this.info = j || { error: `status check returned ${r.status}` };
       this._status = !!(j && j.ai);
-    } catch (e) { this.info = { error: "no AI server found (static hosting)" }; this._status = false; }
+    } catch (e) { this.info = { error: "no generation server found (static hosting)" }; this._status = false; }
     return this._status;
   },
   async generate(opts) {
     const r = await fetch("api/generate", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(opts) });
-    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `AI request failed (${r.status})`);
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `Generation request failed (${r.status})`);
     return r.json();
   },
   async improve(payload) {
     const r = await fetch("api/improve", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
-    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `AI request failed (${r.status})`);
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `Generation request failed (${r.status})`);
     return r.json();
   },
 };

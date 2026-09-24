@@ -10,7 +10,7 @@ const APPROACH = {
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
-  if (!aiEnabled()) return res.status(503).json({ error: "AI is not configured on this server" });
+  if (!aiEnabled()) return res.status(503).json({ error: "Full lesson plan generation is not set up on this server" });
   try {
     const o = await readBody(req);
     const unit = o.mode === "unit";

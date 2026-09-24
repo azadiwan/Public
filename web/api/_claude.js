@@ -50,7 +50,7 @@ export async function askJson(prompt, schema, maxTokens = 32000) {
     messages: [{ role: "user", content: prompt }],
   });
   const msg = await stream.finalMessage();
-  if (msg.stop_reason === "refusal") throw Object.assign(new Error("The AI declined this request. Try rephrasing the topic."), { status: 422 });
+  if (msg.stop_reason === "refusal") throw Object.assign(new Error("This request was declined. Try rephrasing the topic."), { status: 422 });
   if (msg.stop_reason === "max_tokens") throw Object.assign(new Error("The response was too long. Try fewer days or a shorter lesson."), { status: 422 });
   const text = msg.content.filter((b) => b.type === "text").map((b) => b.text).join("");
   return JSON.parse(text);
