@@ -1,0 +1,13 @@
+{
+  "name": "launchpoint-education",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "LaunchPoint Education: K-8 lesson and curriculum builder for teachers",
+  "scripts": {
+    "dev": "npx serve ."
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0"
+  }
+}

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LaunchPoint Education — K–8 lesson & curriculum builder for teachers</title>
+  <meta name="description" content="Build classroom-ready K–8 lessons and full units in minutes — math, science, PBL, social studies, history, ELA, reading, world languages and test prep. Export to PowerPoint, Google Slides, Canva, PDF and Word, or upload your own lesson to improve it." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="container">
+      <a class="logo" href="#/"><span class="logo-mark">🚀</span><span>LaunchPoint <small>Education</small></span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#/build" data-nav="build">Build a lesson</a>
+        <a href="#/improve" data-nav="improve">Upload &amp; improve</a>
+        <a href="#/library" data-nav="library">My library</a>
+        <a href="#/#pricing" data-nav="pricing">Pricing</a>
+      </div>
+      <a class="btn btn-primary btn-sm cta" href="#/build">Start free</a>
+    </div>
+  </nav>
+
+  <main id="view"></main>
+
+  <!-- Landing page -->
+  <template id="tpl-home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">✨ Built for K–8 teachers</span>
+          <h1>Your next lesson, <em>ready for launch</em> in minutes.</h1>
+          <p class="lead">Pick a topic, a grade and how much time you have. LaunchPoint builds a standards-aligned lesson or full unit, with slides, a lesson plan, worksheets and an answer key. Edit anything, then export to the tools you already use.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary btn-lg" href="#/build">Build a lesson →</a>
+            <a class="btn btn-ghost btn-lg" href="#/improve">Improve my own lesson</a>
+          </div>
+          <p class="hero-note">Free to try · No sign-up needed · Works with PowerPoint, Google Slides, Canva, Word &amp; PDF</p>
+        </div>
+        <div class="hero-card" aria-hidden="true">
+          <div class="hc-top"><span></span><span></span><span></span></div>
+          <div class="hc-slide">
+            <div class="tag">Hook · 5 min</div>
+            <h4>Equivalent Fractions</h4>
+            <ul><li>You eat 2 of 4 slices, your friend eats 4 of 8. Who ate more?</li><li>Think–pair–share</li></ul>
+          </div>
+          <div class="hc-row">
+            <span class="chip">Grade 4</span><span class="chip">45 min</span><span class="chip">CCSS 4.NF.A.1</span><span class="chip">📊 .pptx</span><span class="chip">📄 .pdf</span><span class="chip">🎨 Canva</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Every subject you teach</div>
+          <h2>Start from a subject you teach</h2>
+          <p>A built-in K–8 topic library with real content, or type any topic you like.</p>
+        </div>
+        <div class="subject-strip" id="homeSubjects"></div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">How it works</div>
+          <h2>From idea to classroom in three steps</h2>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="num">1</div><h3>Choose</h3><p>Subject, grade, topic, and either a single lesson (15–120 min) or a multi-day unit. Pick a teaching approach: direct instruction, 5E inquiry, problem-based, stations, or seminar.</p></div>
+          <div class="step"><div class="num">2</div><h3>Customize</h3><p>Every part can be edited: objectives, vocabulary, timing, activities, teacher notes, differentiation, questions. Minutes re-total automatically as you edit.</p></div>
+          <div class="step"><div class="num">3</div><h3>Export &amp; teach</h3><p>Download PowerPoint, Google Slides, Canva, PDF, Word, a student worksheet, a Kahoot/Blooket quiz CSV, or Quizlet flashcards.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Features</div>
+          <h2>Built around how teachers actually plan</h2>
+        </div>
+        <div class="features">
+          <div class="feature"><div class="fi">⏱️</div><h3>Time-aware planning</h3><p>Say how long you have and every block gets its minutes. A timing bar warns you when you're over or under.</p></div>
+          <div class="feature"><div class="fi">🗓️</div><h3>Lessons or full units</h3><p>Build one lecture or a 2–40 day unit that ends with review and assessment days.</p></div>
+          <div class="feature"><div class="fi">🧩</div><h3>Problem-based learning</h3><p>Driving questions, team roles, milestones and a public product, laid out day by day.</p></div>
+          <div class="feature"><div class="fi">🌍</div><h3>Differentiation included</h3><p>Every lesson includes supports, English-learner scaffolds and extension challenges.</p></div>
+          <div class="feature"><div class="fi">📤</div><h3>Upload &amp; improve</h3><p>Drop in your own PowerPoint, Word doc or PDF. Get a quality score and a prioritized list of fixes, or a rebuilt version.</p></div>
+          <div class="feature"><div class="fi">🎯</div><h3>Standards-tagged</h3><p>Topics come tagged with CCSS, NGSS, C3 or ACTFL standards, and you can add your state's codes.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Export formats</div>
+          <h2>Export to the tools you already use</h2>
+        </div>
+        <div class="format-cloud" id="homeFormats"></div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Pricing</div>
+          <h2>Free for every teacher. Pro when you need more.</h2>
+          <p>Schools and districts get shared libraries, admin tools and volume pricing.</p>
+        </div>
+        <div class="pricing">
+          <div class="plan"><h3>Teacher Free</h3><div class="price">$0</div><p class="muted">Everything you need to try it.</p>
+            <ul><li>Full K–8 topic library</li><li>Unlimited lessons &amp; units</li><li>All export formats</li><li>Upload &amp; improve (quality report)</li></ul>
+            <a class="btn btn-ghost" href="#/build">Start building</a></div>
+          <div class="plan featured"><h3>Teacher Pro</h3><div class="price">$9<small>/month</small></div><p class="muted">Full custom lesson plans on any topic.</p>
+            <ul><li>Full lesson plans generated for any topic or standard</li><li>Deep rewrite of uploaded lessons</li><li>One-click rewrite, simplify &amp; translate</li><li>Cloud library across devices</li></ul>
+            <a class="btn btn-primary" href="#/build">Try Pro features</a></div>
+          <div class="plan"><h3>School &amp; District</h3><div class="price">Custom</div><p class="muted">For teams planning together.</p>
+            <ul><li>Shared curriculum libraries</li><li>State-standard alignment packs</li><li>SSO &amp; admin dashboard</li><li>Training &amp; onboarding</li></ul>
+            <a class="btn btn-ghost" href="mailto:hello@launchpointeducation.com">Contact sales</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head"><div class="kicker">FAQ</div><h2>Questions teachers ask</h2></div>
+        <div class="faq">
+          <details><summary>How do I get it into Canva or Google Slides?</summary><p>Choose the Canva or Google Slides export. You'll get a .pptx built for that tool. In Canva, go to Create a design › Import file. In Google Drive, upload it and choose Open with › Google Slides. Everything stays editable.</p></details>
+          <details><summary>Can I change what gets generated?</summary><p>Yes. Every title, bullet, minute count, teacher note, vocabulary word and question can be edited. You can also reorder or add blocks and add days to a unit.</p></details>
+          <details><summary>What files can I upload to improve?</summary><p>PowerPoint (.pptx), Word (.docx), PDF, and plain text or Markdown. For Canva or Google files, download them as PPTX, PDF or DOCX first. You can also paste text straight in.</p></details>
+          <details><summary>Is student data involved?</summary><p>No. LaunchPoint plans lessons and never needs student information. Free-tier lessons are saved only in your own browser.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band">
+          <h2>Get tomorrow's lesson done tonight.</h2>
+          <a class="btn btn-lg" href="#/build">Build a lesson now →</a>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="container">
+        <a class="logo" href="#/"><span class="logo-mark">🚀</span><span>LaunchPoint Education</span></a>
+        <div>© <span id="yr"></span> LaunchPoint Education · Made for teachers</div>
+      </div>
+    </footer>
+  </template>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="overlay" id="overlay"><div class="box"><div class="spinner"></div><b id="overlayMsg">Building your lesson…</b><p class="muted" id="overlaySub" style="margin:6px 0 0;font-size:14px"></p></div></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/analyzer.js"></script>
+  <script src="js/exporters.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
