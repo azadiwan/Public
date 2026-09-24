@@ -287,8 +287,9 @@ App.ai = {
     try {
       const r = await fetch("api/health", { cache: "no-store" });
       const j = r.ok ? await r.json() : null;
+      this.info = j || { error: `status check returned ${r.status}` };
       this._status = !!(j && j.ai);
-    } catch { this._status = false; }
+    } catch (e) { this.info = { error: "no AI server found (static hosting)" }; this._status = false; }
     return this._status;
   },
   async generate(opts) {

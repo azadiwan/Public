@@ -43,7 +43,15 @@
   };
   const saveBuild = () => store.set(K_BUILD, S.build);
   const gradeLabel = (g) => (g === "K" ? "Kindergarten" : `Grade ${g}`);
-  const aiBadge = () => `<span class="ai-badge ${S.ai ? "" : "off"}" title="${S.ai ? "AI generation is connected" : "Using the built-in library. Deploy with an API key to enable AI (see README)."}">${S.ai ? "● AI connected" : "○ Library mode"}</span>`;
+  const aiReason = () => {
+    const i = App.ai.info || {};
+    if (i.error) return i.error;
+    if (i.key === "missing") return `API key not found in the ${i.environment} environment. Add ANTHROPIC_API_KEY for ${i.environment} in Vercel and redeploy.`;
+    if (i.key && i.key !== "present") return `API key ${i.key}.`;
+    if (i.sdk && i.sdk !== "ok") return `AI library ${i.sdk}`;
+    return "Checking…";
+  };
+  const aiBadge = () => `<span class="ai-badge ${S.ai ? "" : "off"}" title="${esc(S.ai ? "AI generation is connected" : "Using the built-in library. " + aiReason())}">${S.ai ? "● AI connected" : "○ Library mode"}</span>`;
 
   /* ---------- Router ---------- */
   const currentRoute = () => (location.hash.replace(/^#\/?/, "").split(/[#/?]/)[0] || "home");

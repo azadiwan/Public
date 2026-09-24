@@ -2,7 +2,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 
 export const MODEL = process.env.CLAUDE_MODEL || "claude-opus-5";
-const client = process.env.ANTHROPIC_API_KEY ? new Anthropic() : null;
+const apiKey = (process.env.ANTHROPIC_API_KEY || "").trim();
+const client = apiKey ? new Anthropic({ apiKey }) : null;
 export const aiEnabled = () => !!client;
 
 const str = { type: "string" };
