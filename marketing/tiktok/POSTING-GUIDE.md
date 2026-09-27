@@ -8,7 +8,7 @@ Three vertical (1080×1920) screen-recording videos with a **built-in voiceover*
 | `02-improve-old-lesson.mp4` | ~37s | "Have an old lesson that's just… fine?" |
 | `03-whole-unit.mp4` | ~47s | "Need a whole unit, not just one lesson?" |
 
-The voice is a generated narrator voice (Kokoro, an open-source voice licensed for commercial use). The scripts below are exactly what it says.
+The voice is a generated narrator voice (Kokoro, an open-source voice licensed for commercial use; sample D from `voice-samples/`). The scripts below are exactly what it says.
 
 ## How to post (about 3 minutes per video)
 
@@ -30,21 +30,16 @@ The voice is a generated narrator voice (Kokoro, an open-source voice licensed f
 
 **Voiceover** (built in; use this script if you record your own)
 
-> POV: It's Sunday night, and Monday's lesson still isn't done.
+> Okay... it's Sunday night, and Monday's lesson still isn't done.
 > So I opened LaunchPoint, and tapped Build a lesson.
-> Pick your subject.
-> Your grade.
-> And a topic, or type your own.
-> How long is class? Forty-five minutes.
-> Choose your teaching style,
-> and the format you want. PowerPoint, Canva, Google Slides, PDF, or Word.
-> Tap build.
-> And there it is. A full lesson plan, with every minute planned.
-> Hook, mini-lesson, practice, and an exit ticket.
-> Everything is editable.
-> And the slides are already made.
-> Export, and you're done. Go enjoy your Sunday.
-> LaunchPoint Education. Free for teachers, at launchpointeducation.com.
+> I pick my subject... my grade... and a topic. Or I can type my own.
+> Class is forty-five minutes.
+> I choose how I like to teach... and the format I want. PowerPoint, Canva, Google Slides, PDF, or Word.
+> Then I tap build.
+> And there it is! A full lesson plan, with every minute planned... a hook, a mini-lesson, practice, and an exit ticket.
+> I can edit anything I want... and the slides are already made.
+> Export, and I'm done. Go enjoy your Sunday!
+> LaunchPoint Education. It's free for teachers, at launchpointeducation.com.
 
 **Caption:**
 > Sunday night lesson planning, handled 😮‍💨 Topic → grade → minutes → full lesson plan with slides, worksheet & answer key. Free at launchpointeducation.com (link in bio)
@@ -59,13 +54,11 @@ The voice is a generated narrator voice (Kokoro, an open-source voice licensed f
 
 > Have an old lesson that's just... fine?
 > Upload your PowerPoint, Word doc, or PDF.
-> You get an instant lesson score,
-> a checklist of exactly what's missing,
-> and specific fixes, ranked by priority.
-> Then, one tap rebuilds it.
-> Your content, now with a hook, practice, and an exit ticket.
+> You get an instant lesson score... a checklist of exactly what's missing... and specific fixes, ranked by priority.
+> Then, with one tap, it rebuilds your lesson.
+> It keeps your content, and adds a hook, practice, and an exit ticket.
 > Download just the fix list, or the whole new lesson.
-> LaunchPoint Education. Free for teachers, at launchpointeducation.com.
+> LaunchPoint Education. It's free for teachers, at launchpointeducation.com.
 
 **Caption:**
 > Your old slides deserve a glow-up ✨ Upload any lesson → get a score + exactly what to fix → rebuild it in one tap. Free at launchpointeducation.com
@@ -78,18 +71,14 @@ The voice is a generated narrator voice (Kokoro, an open-source voice licensed f
 
 **Voiceover** (built in)
 
-> Need a whole unit, not just one lesson?
-> Science. Grade six. Photosynthesis.
-> Switch to curriculum unit.
-> Five days, forty-five minutes each.
-> Make it problem-based,
-> and build.
-> Now you've got a full week, planned day by day,
-> with a driving question, milestones, and a final project.
-> Supports for English learners and extension are built in,
-> plus questions, and an answer key.
-> Export slides, a worksheet, even a quiz for Kahoot or Blooket.
-> LaunchPoint Education. Free for teachers, at launchpointeducation.com.
+> Need a whole unit... not just one lesson?
+> Let's do sixth grade science. Photosynthesis.
+> Switch to curriculum unit... five days, forty-five minutes each.
+> Make it problem-based... and build.
+> Now I've got the whole week, planned day by day... with a driving question, milestones, and a final project.
+> Supports for English learners and extension are built in... plus questions, and an answer key.
+> Then export slides, a worksheet, even a quiz for Kahoot or Blooket.
+> LaunchPoint Education. It's free for teachers, at launchpointeducation.com.
 
 **Caption:**
 > A whole week of science, planned 📚 5-day photosynthesis unit with a real project, ELL supports & answer key. Free at launchpointeducation.com
