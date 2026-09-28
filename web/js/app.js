@@ -59,6 +59,7 @@
     const r = currentRoute();
     document.querySelectorAll("[data-nav]").forEach((a) => a.classList.toggle("active", a.dataset.nav === r));
     $("#navLinks").classList.remove("open");
+    if (App.views && App.views[r]) return App.views[r](view);
     ({ home: renderHome, build: renderBuild, editor: renderEditor, improve: renderImprove, library: renderLibrary }[r] || renderHome)();
   }
   window.addEventListener("hashchange", () => { render(); if (!location.hash.includes("#pricing")) window.scrollTo(0, 0); });
@@ -194,6 +195,7 @@
         <input class="title-input" data-bind="title" value="${esc(l.title)}" aria-label="Lesson title" />
         <button class="btn btn-ghost btn-sm" data-act="save">💾 Save to library</button>
         <button class="btn btn-ghost btn-sm" data-act="present">▶ Present</button>
+        <button class="btn btn-ghost btn-sm" data-act="make-worksheet" title="Make a practice worksheet for this lesson">📝 Worksheet</button>
         <div class="menu">
           <button class="btn btn-primary btn-sm" data-act="export-menu">⬇ Export ▾</button>
           <div class="menu-pop" id="exportMenu">
@@ -545,6 +547,7 @@
       case "sel": S.sel = v; renderEditor(); window.scrollTo({ top: 0, behavior: "smooth" }); break;
       case "save": saveToLibrary(); break;
       case "present": present(); break;
+      case "make-worksheet": App.openWorksheetFor(l); break;
       case "export-menu": $("#exportMenu").classList.toggle("open"); break;
       case "export": doExport(v); break;
       case "list-add": getPath(l, el.dataset.list).push(""); saveCurrent(); renderEditor(); break;

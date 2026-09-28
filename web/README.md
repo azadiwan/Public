@@ -10,6 +10,7 @@ A K–8 lesson and curriculum builder for teachers. It covers math, science, pro
 | **Teaching approach** | Direct instruction (I do/We do/You do), 5E inquiry, problem-based learning, station rotation, or Socratic seminar. Each block gets its share of the minutes automatically. |
 | **Edit everything** | Objectives, vocabulary, materials, standards, every block's title, minutes, slide content and teacher notes. You can also reorder, duplicate, delete, add days, and simplify wording. A live timer shows when the lesson is over or under time. |
 | **Formats** | PowerPoint `.pptx`, Canva-ready `.pptx`, Google Slides `.pptx`, PDF (plan + worksheet + answer key), Word `.docx`, worksheet-only PDF, quiz CSV (Kahoot/Blooket/Quizizz/Forms), Quizlet flashcards, web page, Markdown, and a project `.json` for backup and sharing. |
+| **Worksheets & practice** | `#/worksheets`. Math: 25 procedurally generated skills from K–8 with correct answers, fresh numbers every time, 3 difficulty levels, word problems, stacked arithmetic. Other subjects: vocabulary matching, fill-in-the-blank, multiple choice, true/false and short answer from the topic library (any topic is written by `api/worksheet` when the key is set). A/B or 3 leveled versions, editable problems, answer keys; export PDF, Word, quiz CSV and flashcards. The lesson editor's "📝 Worksheet" button prefills it. |
 | **Upload & improve** | Upload `.pptx`, `.docx`, `.pdf`, `.txt`/`.md` (or paste text). You get a 0–100 score, a 10-point lesson checklist, the reading grade level (Flesch-Kincaid), pacing, text density, Bloom's rigor, and ranked suggestions. You can download just the suggestions, or rebuild the lesson into an improved, editable one. |
 | **Present** | Full-screen slide mode in the browser. |
 | **Library** | Saves lessons in the browser. Duplicate, delete, or import/export project files. |
@@ -48,6 +49,8 @@ web/
   js/analyzer.js     File text extraction, lesson scoring, suggestions, optimizer
   js/exporters.js    PPTX / PDF / DOCX / CSV / HTML / MD exporters (libraries lazy-loaded from jsDelivr)
   js/app.js          UI: routing, builder, editor, improve, library
+  js/worksheets.js   Worksheet engine: math generators, topic question builder, PDF/Word/CSV exports
+  js/worksheets-ui.js Worksheet builder page
   api/               Optional Claude-powered serverless functions
 ```
 
