@@ -31,7 +31,23 @@ App.views = App.views || {};
   };
 
   let view;
-  App.views.worksheets = (el) => { view = el; if (!el._wsBound) bind(el); render(); };
+  // Deep links from search pages, e.g. #/worksheets?subject=math&grade=4&skills=mult_facts&go=1
+  function applyPreset() {
+    const q = new URLSearchParams((location.hash.split("?")[1] || ""));
+    if (![...q.keys()].length) return false;
+    const o = W.o;
+    if (q.get("subject") && App.SUBJECTS[q.get("subject")]) o.subject = q.get("subject");
+    if (q.get("grade") && App.GRADES.includes(q.get("grade"))) o.grade = q.get("grade");
+    if (q.get("skills")) o.skills = q.get("skills").split(",").filter((k) => App.MATH_SKILLS[k]);
+    if (q.get("topic")) o.topic = q.get("topic");
+    if (q.get("types")) o.types = q.get("types").split(",").filter((t) => App.WS_TYPES[t]);
+    else o.types = o.subject === "math" ? ["compute", "word"] : ["mc", "fill", "short", "match"];
+    o.title = ""; o.leveled = false; o.versions = 1;
+    W.view = "setup"; save();
+    history.replaceState(null, "", "#/worksheets");
+    return q.get("go") === "1";
+  }
+  App.views.worksheets = (el) => { view = el; if (!el._wsBound) bind(el); const go = applyPreset(); render(); if (go) create(); };
 
   const isMath = () => W.o.subject === "math";
   const allowedTypes = () => (isMath() ? ["compute", "word", "mc", "work"] : ["mc", "short", "fill", "tf", "match", "work"]).map((k) => [k, App.WS_TYPES[k]]);

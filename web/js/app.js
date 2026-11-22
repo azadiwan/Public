@@ -77,6 +77,15 @@
 
   /* ---------- Build ---------- */
   function renderBuild() {
+    // Deep links from search pages, e.g. #/build?subject=science&grade=6&topic=Photosynthesis
+    const q = new URLSearchParams(location.hash.split("?")[1] || "");
+    if ([...q.keys()].length) {
+      if (App.SUBJECTS[q.get("subject")]) S.build.subject = q.get("subject");
+      if (App.GRADES.includes(q.get("grade"))) S.build.grade = q.get("grade");
+      if (q.get("topic")) S.build.topic = q.get("topic");
+      if (q.get("mode") === "unit" || q.get("mode") === "lecture") S.build.mode = q.get("mode");
+      saveBuild(); history.replaceState(null, "", "#/build");
+    }
     const b = S.build;
     const subj = App.SUBJECTS[b.subject];
     const topics = Object.entries(subj.topics);
