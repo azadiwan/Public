@@ -42,7 +42,7 @@ App.views = App.views || {};
     if (q.get("topic")) o.topic = q.get("topic");
     if (q.get("types")) o.types = q.get("types").split(",").filter((t) => App.WS_TYPES[t]);
     else o.types = o.subject === "math" ? ["compute", "word"] : ["mc", "fill", "short", "match"];
-    o.title = ""; o.leveled = false; o.versions = 1;
+    o.title = (q.get("title") || "").slice(0, 120); o.leveled = false; o.versions = 1;
     W.view = "setup"; save();
     history.replaceState(null, "", "#/worksheets");
     return q.get("go") === "1";

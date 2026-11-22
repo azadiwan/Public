@@ -1,0 +1,144 @@
+[
+ {
+  "id": "01-3rd-multiplication",
+  "kicker": "FREE · 3RD GRADE MATH",
+  "title": "Multiplication Facts Worksheets",
+  "sub": "Fresh numbers every time · 3 levels · answer key",
+  "ws": {
+   "grade": "3",
+   "skills": [
+    "mult_facts"
+   ],
+   "stacked": true
+  },
+  "path": "/worksheets/3rd-grade-multiplication-facts/"
+ },
+ {
+  "id": "02-4th-long-division",
+  "kicker": "FREE · 4TH GRADE MATH",
+  "title": "Long Division Worksheets",
+  "sub": "With remainders · printable · answer key",
+  "ws": {
+   "grade": "4",
+   "skills": [
+    "long_div"
+   ]
+  },
+  "path": "/worksheets/4th-grade-long-division/"
+ },
+ {
+  "id": "03-4th-equivalent-fractions",
+  "kicker": "FREE · 4TH GRADE MATH",
+  "title": "Equivalent Fractions Practice",
+  "sub": "Print-and-go sheets · answer key included",
+  "ws": {
+   "grade": "4",
+   "skills": [
+    "frac_equiv"
+   ]
+  },
+  "path": "/worksheets/4th-grade-equivalent-fractions/"
+ },
+ {
+  "id": "04-2nd-regrouping",
+  "kicker": "FREE · 2ND GRADE MATH",
+  "title": "2-Digit Addition with Regrouping",
+  "sub": "Stacked format · printable · answer key",
+  "ws": {
+   "grade": "2",
+   "skills": [
+    "add_multi"
+   ],
+   "stacked": true
+  },
+  "path": "/worksheets/2nd-grade-multi-digit-addition/"
+ },
+ {
+  "id": "05-6th-percents",
+  "kicker": "FREE · 6TH GRADE MATH",
+  "title": "Percent of a Number Worksheets",
+  "sub": "Practice + word problems · answer key",
+  "ws": {
+   "grade": "6",
+   "skills": [
+    "percent_of"
+   ]
+  },
+  "path": "/worksheets/6th-grade-percents/"
+ },
+ {
+  "id": "06-7th-two-step-equations",
+  "kicker": "FREE · 7TH GRADE MATH",
+  "title": "Two-Step Equations Worksheets",
+  "sub": "3 levels · unlimited versions · answer key",
+  "ws": {
+   "grade": "7",
+   "skills": [
+    "eq_two"
+   ]
+  },
+  "path": "/worksheets/7th-grade-two-step-equations/"
+ },
+ {
+  "id": "07-5th-order-of-operations",
+  "kicker": "FREE · 5TH GRADE MATH",
+  "title": "Order of Operations Practice",
+  "sub": "Printable · new problems every click",
+  "ws": {
+   "grade": "5",
+   "skills": [
+    "order_ops"
+   ]
+  },
+  "path": "/worksheets/5th-grade-order-of-operations/"
+ },
+ {
+  "id": "08-photosynthesis-lesson",
+  "kicker": "FREE LESSON PLAN · SCIENCE",
+  "title": "Photosynthesis Lesson Plan",
+  "sub": "Slides, timing, worksheet & answer key",
+  "lesson": {
+   "h": "How do plants make food?",
+   "items": [
+    "Hook: where does an oak tree's mass come from?",
+    "Mini-lesson: sunlight + water + CO₂",
+    "Guided & independent practice",
+    "Exit ticket + answer key"
+   ]
+  },
+  "path": "/lesson-plans/photosynthesis/"
+ },
+ {
+  "id": "09-water-cycle-lesson",
+  "kicker": "FREE LESSON PLAN · SCIENCE",
+  "title": "The Water Cycle Lesson Plan",
+  "sub": "Ready to teach · PowerPoint, Google Slides, PDF",
+  "lesson": {
+   "h": "Where does rain come from?",
+   "items": [
+    "Hook: was your water once dinosaur water?",
+    "Evaporation, condensation, precipitation",
+    "Guided & independent practice",
+    "Exit ticket + answer key"
+   ]
+  },
+  "path": "/lesson-plans/the-water-cycle/"
+ },
+ {
+  "id": "10-lesson-in-minutes",
+  "kicker": "FOR K–8 TEACHERS · FREE",
+  "title": "Plan Tomorrow's Lesson in 5 Minutes",
+  "sub": "Pick topic, grade & time → slides, plan, worksheet",
+  "lesson": {
+   "h": "Equivalent Fractions · Grade 4 · 45 min",
+   "items": [
+    "Hook · 5 min",
+    "Mini-lesson · 11 min",
+    "Guided practice · 9 min",
+    "Independent practice · 11 min",
+    "Check & exit ticket · 9 min"
+   ]
+  },
+  "path": "/"
+ }
+]
