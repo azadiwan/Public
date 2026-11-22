@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://launchpointeducation.com/sitemap.xml
+Sitemap: https://www.launchpointeducation.com/sitemap.xml
