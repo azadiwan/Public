@@ -88,7 +88,7 @@ export default async function handler(req, res) {
       case "portal": {
         const p = readPass(b.token);
         if (!p) return res.status(401).json({ error: "Restore your Pro plan on this device first." });
-        const s = await stripe("billing_portal/sessions", { method: "POST", form: { customer: p.c, return_url: "https://launchpointeducation.com/#/pro" } });
+        const s = await stripe("billing_portal/sessions", { method: "POST", form: { customer: p.c, return_url: "https://www.launchpointeducation.com/#/pro" } });
         return res.status(200).json({ url: s.url });
       }
       default:

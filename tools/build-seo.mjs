@@ -9,7 +9,7 @@ import vm from "vm";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const WEB = path.join(ROOT, "web");
-const SITE = "https://launchpointeducation.com";
+const SITE = "https://www.launchpointeducation.com";
 
 /* ---------- Load the site's engines in a sandbox ---------- */
 let uidN = 0;
