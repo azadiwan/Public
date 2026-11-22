@@ -1,5 +1,7 @@
 # Pinterest: first 10 pins
 
+**Profile:** https://www.pinterest.com/launchpointedu/
+
 Pinterest is where teachers search for classroom resources, and a pin keeps bringing visitors for months, unlike a TikTok. Each pin below is 1000×1500 (the size Pinterest recommends). Each one links to a free page on the site, with tracking tags so Vercel Analytics shows which pins bring visitors (look for `utm_source=pinterest` in the dashboard).
 
 ## One-time setup (about 10 minutes)

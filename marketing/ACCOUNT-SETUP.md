@@ -1,5 +1,7 @@
 # Account setup: the 3 sign-ups only you can do
 
+**Pinterest:** https://www.pinterest.com/launchpointedu/
+
 **TikTok:** https://www.tiktok.com/@launchpointedu
 
 **Live store:** https://www.teacherspayteachers.com/store/launchpoint-education
