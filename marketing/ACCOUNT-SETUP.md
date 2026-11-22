@@ -1,5 +1,7 @@
 # Account setup: the 3 sign-ups only you can do
 
+**Live store:** https://www.teacherspayteachers.com/store/launchpoint-education
+
 These three accounts legally belong to a real person or business. Each one asks for your identity, phone verification, and (for TpT and Stripe) your tax ID and bank details, and each makes you personally accept their terms. Claude can't create them for you: it has no way to sign up as you, and shouldn't hold your banking or tax details. Everything after sign-up, Claude does.
 
 Total time: about **35 minutes**. Every answer is filled in below, so you only copy.

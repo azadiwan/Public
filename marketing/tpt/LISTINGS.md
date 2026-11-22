@@ -1,5 +1,7 @@
 # Teachers Pay Teachers (TpT): starter product line
 
+**Live store:** https://www.teacherspayteachers.com/store/launchpoint-education
+
 Eight ready-to-sell math practice packs, made with LaunchPoint's own worksheet engine. Every pack has a branded cover, a "How to use" page that promotes **launchpointeducation.com**, one-page practice sheets in three levels, and complete answer keys.
 
 | File | Product | Pages | Suggested price |
