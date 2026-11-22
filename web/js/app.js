@@ -145,7 +145,7 @@
             <dt>Formats</dt><dd>${b.formats.map((f) => App.FORMATS.find((x) => x.id === f).label).join(", ") || "—"}</dd>
           </dl>
           <button class="btn btn-primary btn-lg mt" style="width:100%" data-act="generate">🚀 Build my ${b.mode === "unit" ? "unit" : "lesson"}</button>
-          <p class="hint mt" style="margin-bottom:0">Opens in the editor. Nothing is final until you export.</p>
+          <p class="hint mt" style="margin-bottom:0">Opens in the editor. Nothing is final until you export.</p>${b.useAI && S.ai && App.pro ? App.pro.hint() : ""}
         </aside>
       </div>
     </div>`;

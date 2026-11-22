@@ -209,12 +209,13 @@ App.views = App.views || {};
     if (needServer) {
       busy(true, "Writing your questions…");
       try {
+        if (App.pro && !App.pro.consume()) throw new Error("free monthly limit reached");
         const r = await fetch("api/worksheet", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ subject: App.SUBJECTS[o.subject].label, grade: o.grade, topic: o.topic, types: o.types, count: o.count, difficulty: o.difficulty, versions: ws.versions.map((x) => x.label || "Version") }) });
         if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `status ${r.status}`);
         const j = await r.json();
         (j.versions || []).forEach((pv, i) => { if (ws.versions[i]) ws.versions[i].problems = App.normalizeWorksheetProblems(pv.problems); });
         ws.source = "custom";
-      } catch (e) { toast(`Couldn't write custom questions (${e.message}). Made a starter worksheet instead.`, true); }
+      } catch (e) { if (App.pro && !/limit reached/.test(e.message)) App.pro.refund(); toast(`Couldn't write custom questions (${e.message}). Made a starter worksheet instead.`, true); }
       busy(false);
     }
     W.ws = ws; W.view = "result"; W.tab = "preview"; W.ver = 0; save(); render(); window.scrollTo(0, 0);

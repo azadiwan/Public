@@ -65,3 +65,9 @@ The brand name is in `js/data.js` (`App.BRAND`), in `index.html`, and in the the
 ## Adding topics
 
 Add an entry under a subject in `App.SUBJECTS` in `js/data.js`, with `grades`, `standard`, `hook`, `ideas`, `vocab`, `qs`, and `project`. It shows up in the builder right away.
+
+## LaunchPoint Pro (Stripe)
+- Product, prices ($9/mo, $59/yr), checkout links and the customer portal live in the LaunchPoint Education Stripe account. Their IDs are in `api/pro.js`.
+- Set **`STRIPE_SECRET_KEY`** in Vercel (Production) to switch checkout on. Until it's set, the Pro page shows "Opening very soon" and the free monthly limit isn't enforced.
+- Free teachers get 5 full generations a month (lesson plans, document rewrites, custom worksheets), counted in the browser. Block-level rewrites stay free.
+- After checkout, Stripe redirects to `#/pro?session_id=…`; `api/pro` verifies it and returns a signed Pro pass that is re-checked daily. Teachers restore on a new device with their email plus the card's last 4 digits, and manage or cancel through the Stripe customer portal.

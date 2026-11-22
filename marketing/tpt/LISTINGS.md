@@ -15,9 +15,9 @@ Eight ready-to-sell math practice packs, made with LaunchPoint's own worksheet e
 
 Each `*-cover.png` is the thumbnail image for that product.
 
-## Open the store (about 15 minutes, free)
+## Open the store (about 15 minutes, $29 one-time)
 
-1. Go to **teacherspayteachers.com › Sell on TpT** and sign up as a seller. Start with the free **Basic** seller plan. TpT keeps a larger share on Basic than on the paid Premium plan, so check their current fee page and upgrade once sales justify it.
+1. Go to **teacherspayteachers.com › Sell on TpT** and sign up as a seller on the **Basic** plan: a one-time $29 fee. You keep 55% of each sale minus a $0.30 fee. A $4 pack nets about $1.90, so the fee pays for itself after about 16 sales. Skip the **Exclusive** plan ($59.95/yr) for now: it requires selling only on TpT, which conflicts with the free versions on our site.
 2. Store name: **LaunchPoint Education**. Store bio: *"Free K–8 lesson plans, slides and worksheets at launchpointeducation.com. Print-and-go math practice with answer keys."*
 3. Add your payout details (PayPal or bank) so sales can be paid out.
 
