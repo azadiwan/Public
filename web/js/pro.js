@@ -134,6 +134,7 @@ App.views = App.views || {};
         <div class="row" style="gap:10px;flex-wrap:wrap"><input id="proEmail" type="email" placeholder="you@school.org" autocomplete="email" style="flex:2;min-width:200px"><input id="proLast4" inputmode="numeric" maxlength="4" placeholder="Last 4" style="flex:1;min-width:90px"><button class="btn btn-primary" id="proRestore">Restore</button></div></details>`}
       <div class="faq mt"><details><summary>How does billing work?</summary><p>Pro renews automatically each month or year until you cancel. Cancel anytime from this page with "Manage or cancel plan". You keep Pro until the end of the period you paid for.</p></details>
         <details><summary>Can my school pay?</summary><p>Yes. The yearly plan works well for reimbursement, and we can invoice schools for several teachers. Email <a href="mailto:hello@launchpointeducation.com">hello@launchpointeducation.com</a>.</p></details>
+        <details><summary>Prefer ready-made packs?</summary><p>Our print-and-go practice packs with answer keys are on <a href="https://www.teacherspayteachers.com/store/launchpoint-education" target="_blank" rel="noopener">Teachers Pay Teachers</a>.</p></details>
         <details><summary>What stays free?</summary><p>Template lessons and units, every export format, math worksheets with answer keys, and ${FREE_PER_MONTH} full custom lesson plans every month.</p></details></div>
       <p class="hint mt"><a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></p></div>`;
     const portal = $("#proPortal", view);

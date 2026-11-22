@@ -91,7 +91,7 @@ ${jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</sc
   <a class="btn btn-primary btn-sm cta" href="/#/worksheets">Start free</a>
 </div></nav>
 <main class="container page seo">${body}</main>
-<footer><div class="container"><a class="logo" href="/"><span class="logo-mark">🚀</span><span>LaunchPoint Education</span></a><div>Free K–8 lesson plans, worksheets and slides for teachers · <a href="/worksheets/" style="color:#cdd5ea">Worksheets</a> · <a href="/lesson-plans/" style="color:#cdd5ea">Lesson plans</a></div></div></footer>
+<footer><div class="container"><a class="logo" href="/"><span class="logo-mark">🚀</span><span>LaunchPoint Education</span></a><div>Free K–8 lesson plans, worksheets and slides for teachers · <a href="/worksheets/" style="color:#cdd5ea">Worksheets</a> · <a href="/lesson-plans/" style="color:#cdd5ea">Lesson plans</a> · <a href="https://www.teacherspayteachers.com/store/launchpoint-education" style="color:#cdd5ea" rel="noopener">Shop on TpT</a></div></div></footer>
 </body>
 </html>
 `;
