@@ -13,5 +13,6 @@ export default async function handler(req, res) {
     sdk,
     environment: process.env.VERCEL_ENV || "local",
     model: process.env.CLAUDE_MODEL || "claude-opus-5",
+    pro: !!(process.env.STRIPE_SECRET_KEY || "").trim(),
   });
 }

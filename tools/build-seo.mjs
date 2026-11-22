@@ -276,6 +276,6 @@ ${Object.entries(App.SUBJECTS).map(([sid, s]) => `<h3>${s.icon} ${esc(s.label)}<
 /* ---------- Sitemap & robots ---------- */
 const today = new Date().toISOString().slice(0, 10);
 const all = ["", ...urls].map((u) => `${SITE}/${u}`.replace(/\/+$/, "/"));
-fs.writeFileSync(path.join(WEB, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set(all)].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
+fs.writeFileSync(path.join(WEB, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set([...all, `${SITE}/terms.html`, `${SITE}/privacy.html`])].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
 fs.writeFileSync(path.join(WEB, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);
 console.log(`math worksheet pages: ${mathPages.length}, topic worksheet pages: ${topicPages.length}, lesson plan pages: ${lessonPages.length}, sitemap URLs: ${new Set(all).size}`);
