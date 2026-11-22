@@ -126,14 +126,14 @@ App.views = App.views || {};
 
   function paperHtml(ws, v) {
     const probs = v.problems;
-    const drill = probs.every((p) => p.type === "compute");
+    const drill = probs.every((p) => p.type === "compute" && (p.stack || String(p.q).length <= 32));
     const letters = "ABCDEFGH";
     const item = (p, i) => {
       const n = `<b class="wq-n">${i + 1}.</b>`;
       if (drill && ws.opts.stacked && p.stack) return `<div class="wq stack">${n}<div class="stk"><div>${esc(typeof p.stack[0] === "number" ? p.stack[0].toLocaleString("en-US") : p.stack[0])}</div><div>${esc(p.stack[2])} ${esc(typeof p.stack[1] === "number" ? p.stack[1].toLocaleString("en-US") : p.stack[1])}</div></div></div>`;
       if (p.type === "compute") return `<div class="wq">${n} ${esc(p.q)} <span class="blank"></span></div>`;
       if (p.type === "tf") return `<div class="wq">${n} ${esc(p.q)} <span class="tf">T &nbsp; F</span></div>`;
-      if (p.type === "mc") return `<div class="wq">${n} ${esc(p.q)}<ol class="mc" type="A">${(p.choices || []).map((c) => `<li>${esc(c)}</li>`).join("")}</ol></div>`;
+      if (p.type === "mc") return `<div class="wq">${n} ${esc(p.q)}<ol class="mc${(p.choices || []).every((c) => String(c).length <= 16) ? " row" : ""}" type="A">${(p.choices || []).map((c) => `<li>${esc(c)}</li>`).join("")}</ol></div>`;
       if (p.type === "match") {
         const defs = App.worksheetAnswer(p).split(", ").map((x) => x.split("-")); // term# → letter
         const byLetter = {}; defs.forEach(([ti, L]) => (byLetter[L] = p.pairs[+ti - 1].def));

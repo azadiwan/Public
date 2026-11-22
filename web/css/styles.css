@@ -349,3 +349,5 @@ textarea.input { resize: vertical; min-height: 80px; line-height: 1.45; }
 .seo h3 { margin: 18px 0 8px; }
 .seo .chips a.pick { text-decoration: none; }
 @media (max-width: 900px) { .seo-grid { grid-template-columns: 1fr; } .seo-side { position: static; } .seo .nav-links { display: none !important; } }
+.wq ol.mc.row { display: flex; flex-wrap: wrap; gap: 4px 28px; }
+.wq ol.mc.row li { margin-left: 4px; }
