@@ -325,3 +325,29 @@ textarea.input { resize: vertical; min-height: 80px; line-height: 1.45; }
 .wq .stk div:last-child { border-bottom: 2px solid #1c1917; padding-bottom: 2px; margin-bottom: 30px; }
 .keylist { margin: 0; padding-left: 22px; line-height: 1.8; }
 @media (max-width: 640px) { .paper { padding: 24px 18px 32px; } .drill.cols-3, .drill.cols-4 { grid-template-columns: repeat(2, 1fr); } .wq .match { grid-template-columns: 1fr; } }
+
+/* ---------- Search (SEO) pages ---------- */
+.seo .crumbs { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+.seo .crumbs a { color: var(--muted); }
+.seo-hero { background: linear-gradient(135deg, #fff, #fff7f2); border: 1px solid var(--line); border-radius: 20px; padding: 28px; margin-bottom: 22px; }
+.seo-hero h1 { font-family: var(--display); font-size: clamp(30px, 4vw, 44px); margin: 0 0 10px; letter-spacing: -.02em; line-height: 1.1; }
+.seo-hero .lead { color: var(--muted); font-size: 17px; max-width: 760px; margin: 0 0 18px; }
+.seo-hero .hint { margin: 12px 0 0; }
+.seo-grid { display: grid; grid-template-columns: 1fr 320px; gap: 22px; align-items: start; }
+.seo-side { position: sticky; top: 84px; }
+.seo-list { padding-left: 20px; line-height: 1.6; }
+.seo-outline > li { margin-bottom: 10px; }
+.seo-outline ul { color: var(--muted); font-size: 14px; }
+.seo-key { max-width: 820px; margin: 12px auto 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 18px; }
+.seo-key summary { font-weight: 700; cursor: pointer; }
+.seo-faq { margin-top: 30px; max-width: 820px; }
+.seo-faq details { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin-bottom: 8px; }
+.seo-faq summary { font-weight: 700; cursor: pointer; }
+.seo-faq p { color: var(--muted); margin: 8px 0 0; }
+.seo-related { margin-top: 26px; }
+.seo h2 { font-size: 20px; }
+.seo h3 { margin: 18px 0 8px; }
+.seo .chips a.pick { text-decoration: none; }
+@media (max-width: 900px) { .seo-grid { grid-template-columns: 1fr; } .seo-side { position: static; } .seo .nav-links { display: none !important; } }
+.wq ol.mc.row { display: flex; flex-wrap: wrap; gap: 4px 28px; }
+.wq ol.mc.row li { margin-left: 4px; }

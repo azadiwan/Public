@@ -43,9 +43,9 @@ window.App = window.App || {};
       word(r, d) { const n = [2, 3, 4][d]; const a = nDigit(r, n), b = nDigit(r, n); const s = r.pick(["school library", "zoo", "fair", "museum"]); return { q: `On Saturday, ${fmt(a)} people visited the ${s}. On Sunday, ${fmt(b)} people visited. How many people visited in all?`, a: a + b }; } },
     sub_multi: { label: "Multi-digit subtraction", g: [2, 4], gen(r, d) { const n = [2, 3, 4][d]; let a = nDigit(r, n), b = nDigit(r, n); if (b > a) [a, b] = [b, a]; return { q: `${fmt(a)} − ${fmt(b)} =`, a: a - b, stack: [a, b, "−"] }; },
       word(r, d) { const n = [2, 3, 4][d]; let a = nDigit(r, n), b = nDigit(r, n); if (b > a) [a, b] = [b, a]; return { q: `A stadium has ${fmt(a)} seats. ${fmt(b)} seats are filled. How many seats are empty?`, a: a - b }; } },
-    mult_facts: { label: "Multiplication facts", g: [3, 4], gen(r, d) { const m = [5, 10, 12][d]; const a = r.R(2, m), b = r.R(2, m); return { q: `${a} × ${b} =`, a: a * b, wrong: [a * b + a, a * b - b, a + b], stack: [a, b, "×"] }; },
+    mult_facts: { label: "Multiplication facts", g: [3, 4], gen(r, d) { const a = r.R(2, [5, 10, 12][d]), b = r.R([1, 2, 2][d], [10, 10, 12][d]); return { q: `${a} × ${b} =`, a: a * b, wrong: [a * b + a, a * b - b, a + b], stack: [a, b, "×"] }; },
       word(r, d) { const m = [5, 10, 12][d]; const a = r.R(2, m), b = r.R(2, m), t = r.pick(THINGS); return r.pick([{ q: `There are ${a} bags with ${b} ${t} in each bag. How many ${t} are there in all?`, a: a * b, wrong: [a + b, a * b + b] }, { q: `A classroom has ${a} rows of desks with ${b} desks in each row. How many desks are there?`, a: a * b, wrong: [a + b, a * b - a] }, { q: `Each pack has ${b} juice boxes. How many juice boxes are in ${a} packs?`, a: a * b, wrong: [a + b, a * b + a] }]); } },
-    div_facts: { label: "Division facts", g: [3, 4], gen(r, d) { const m = [5, 10, 12][d]; const b = r.R(2, m), q = r.R(1, m); return { q: `${b * q} ÷ ${b} =`, a: q, wrong: [q + 1, b, q * 2] }; },
+    div_facts: { label: "Division facts", g: [3, 4], gen(r, d) { const b = r.R(2, [5, 10, 12][d]), q = r.R(1, [10, 10, 12][d]); return { q: `${b * q} ÷ ${b} =`, a: q, wrong: [q + 1, b, q * 2] }; },
       word(r, d) { const m = [5, 10, 12][d]; const b = r.R(2, m), q = r.R(2, m), t = r.pick(THINGS); return r.pick([{ q: `${b * q} ${t} are shared equally among ${b} friends. How many ${t} does each friend get?`, a: q }, { q: `A teacher puts ${b * q} students into ${b} equal teams. How many students are on each team?`, a: q }, { q: `${b * q} cupcakes are packed in boxes of ${b}. How many boxes are filled?`, a: q }]); } },
     mult_multi: { label: "Multi-digit multiplication", g: [4, 6], gen(r, d) { const [x, y] = [[2, 1], [3, 1], [2, 2]][d]; const a = nDigit(r, x), b = y === 1 ? r.R(2, 9) : nDigit(r, y); return { q: `${fmt(a)} × ${fmt(b)} =`, a: a * b, stack: [a, b, "×"] }; },
       word(r, d) { const a = [r.R(12, 40), r.R(120, 400), r.R(24, 99)][d], b = [r.R(3, 9), r.R(3, 9), r.R(12, 40)][d]; return r.pick([{ q: `A school orders ${a} boxes of crayons. Each box has ${b} crayons. How many crayons is that?`, a: a * b }, { q: `A theater has ${a} rows with ${b} seats in each row. How many seats are there?`, a: a * b }, { q: `A bakery makes ${a} muffins each day. How many muffins does it make in ${b} days?`, a: a * b }]); } },
@@ -54,8 +54,8 @@ window.App = window.App || {};
     place_value: { label: "Place value", g: [1, 4], gen(r, d) { const n = [3, 5, 7][d]; const num = nDigit(r, n); const s = String(num); const i = r.R(0, s.length - 1); const digit = +s[i]; const val = digit * 10 ** (s.length - 1 - i); if (!digit) return SKILLS.place_value.gen(r, d); return { q: `What is the value of the digit ${digit} in ${fmt(num)}?`, a: fmt(val), wrong: [fmt(digit), fmt(val * 10), fmt(Math.max(1, val / 10))] }; } },
     rounding: { label: "Rounding", g: [3, 4], gen(r, d) { const place = [10, 100, 1000][d]; const n = [r.R(11, 99), r.R(101, 999), r.R(1001, 99999)][d]; const a = Math.round(n / place) * place; return { q: `Round ${fmt(n)} to the nearest ${fmt(place)}.`, a: fmt(a), wrong: [fmt(Math.floor(n / place) * place === a ? a + place : Math.floor(n / place) * place), fmt(Math.round(n / (place / 10 || 1)) * (place / 10 || 1))] }; } },
     frac_equiv: { label: "Equivalent fractions", g: [3, 5], gen(r, d) { const b = r.R(2, [5, 8, 12][d]), a = r.R(1, b - 1), k = r.R(2, [3, 5, 9][d]); return { q: `${a}/${b} = ?/${b * k}`, a: a * k, wrong: [a + k, a * k + 1, b * k - a] }; } },
-    frac_simplify: { label: "Simplifying fractions", g: [4, 6], gen(r, d) { const b = r.R(2, [6, 9, 12][d]), a = r.R(1, b - 1), k = r.R(2, [4, 6, 9][d]); return { q: `Write ${a * k}/${b * k} in simplest form.`, a: frac(a, b), wrong: [`${a * k}/${b}`, `${a}/${b * k}`, frac(a + 1, b + 1)] }; } },
-    frac_compare: { label: "Comparing fractions", g: [3, 5], gen(r, d) { const b1 = r.R(2, [6, 10, 12][d]), b2 = d === 0 ? b1 : r.R(2, [6, 10, 12][d]); const a1 = r.R(1, b1 - 1), a2 = r.R(1, b2 - 1); const c = a1 * b2 - a2 * b1; return { q: `Compare: ${a1}/${b1} ___ ${a2}/${b2}  (write <, >, or =)`, a: c > 0 ? ">" : c < 0 ? "<" : "=", choices: [">", "<", "="] }; } },
+    frac_simplify: { label: "Simplifying fractions", g: [4, 6], gen(r, d) { const b = r.R(2, [6, 9, 12][d]), a = r.R(1, b - 1), k = r.R(2, [4, 6, 9][d]); return { q: `Simplify: ${a * k}/${b * k} =`, a: frac(a, b), wrong: [`${a * k}/${b}`, `${a}/${b * k}`, frac(a + 1, b + 1)] }; } },
+    frac_compare: { label: "Comparing fractions", g: [3, 5], gen(r, d) { const b1 = r.R(2, [6, 10, 12][d]), b2 = d === 0 ? b1 : r.R(2, [6, 10, 12][d]); const a1 = r.R(1, b1 - 1), a2 = r.R(1, b2 - 1); const c = a1 * b2 - a2 * b1; return { q: `${a1}/${b1}  ___  ${a2}/${b2}   (<, >, =)`, a: c > 0 ? ">" : c < 0 ? "<" : "=", choices: [">", "<", "="] }; } },
     frac_add_like: { label: "Add & subtract fractions (like denominators)", g: [4, 5], gen(r, d) { const b = r.R(3, [8, 10, 12][d]); let a1 = r.R(1, b - 1), a2 = r.R(1, b - 1); const sub = r.next() < 0.4; if (sub && a2 > a1) [a1, a2] = [a2, a1]; return { q: `${a1}/${b} ${sub ? "−" : "+"} ${a2}/${b} =`, a: frac(sub ? a1 - a2 : a1 + a2, b), wrong: [`${sub ? a1 - a2 : a1 + a2}/${b * 2}`, frac((sub ? a1 - a2 : a1 + a2) + 1, b)] }; } },
     frac_add_unlike: { label: "Add & subtract fractions (unlike denominators)", g: [5, 6], gen(r, d) { const b1 = r.R(2, [4, 6, 10][d]), b2 = r.R(2, [4, 8, 12][d]); const a1 = r.R(1, b1 - 1), a2 = r.R(1, b2 - 1); const sub = r.next() < 0.4 && a1 * b2 > a2 * b1; const n = sub ? a1 * b2 - a2 * b1 : a1 * b2 + a2 * b1; return { q: `${a1}/${b1} ${sub ? "−" : "+"} ${a2}/${b2} =`, a: frac(n, b1 * b2), wrong: [`${sub ? a1 - a2 : a1 + a2}/${b1 + b2}`, frac(n + b1, b1 * b2)] }; } },
     frac_mult: { label: "Multiply fractions", g: [5, 6], gen(r, d) { const b1 = r.R(2, 9), b2 = r.R(2, 9), a1 = r.R(1, b1 - (d ? 0 : 1)), a2 = r.R(1, b2 + (d === 2 ? 4 : 0)); return { q: `${a1}/${b1} × ${a2}/${b2} =`, a: frac(a1 * a2, b1 * b2), wrong: [`${a1 * a2}/${b1 + b2}`, frac(a1 * b2, b1 * a2)] }; } },
@@ -104,11 +104,18 @@ window.App = window.App || {};
     const n = parseFloat(m[0].replace(/,/g, "")); if (!isFinite(n)) return [];
     const dec = (m[1] || "").length - (m[1] ? 1 : 0);
     const mk = (x) => str.slice(0, m.index) + (dec ? x.toFixed(dec) : fmt(Math.round(x))) + str.slice(m.index + m[0].length);
-    return [mk(n + 1), mk(n - 1), mk(n + 10), mk(n * 2), mk(n + r.R(2, 5)), mk(n - r.R(2, 5))];
+    const fm = str.match(/^(\d+) ?(\d+)?\/(\d+)$/);
+    if (fm) { // fractions: nudge numerator and denominator, keep them sensible
+      const [num, den] = fm[2] ? [+fm[2], +fm[3]] : [+fm[1], +fm[3]], whole = fm[2] ? fm[1] + " " : "";
+      return [`${whole}${num + 1}/${den}`, `${whole}${Math.max(1, num - 1)}/${den}`, `${whole}${num}/${den + 1}`, `${whole}${num}/${Math.max(2, den - 1)}`, `${whole}${num + 1}/${den + 1}`];
+    }
+    const out = [mk(n + 1), mk(n - 1), mk(n + 10), mk(n * 2), mk(n + r.R(2, 5)), mk(n - r.R(2, 5))];
+    return n >= 0 ? out.filter((w) => !/^-|^\$-/.test(w)) : out;
   };
   const mcChoices = (r, answer, wrong, fixed) => {
     if (fixed) return fixed.slice();
-    const pool = uniq([...(wrong || []), ...numericWrong(r, answer)]).filter((w) => w !== String(answer) && w !== "NaN" && !/undefined/.test(w));
+    const nonNeg = !/^-/.test(String(answer));
+    const pool = uniq([...(wrong || []), ...numericWrong(r, answer)]).filter((w) => w !== String(answer) && w !== "NaN" && !/undefined/.test(w) && !(nonNeg && /^-|^0\/|\/0$/.test(w)));
     return r.shuffle([String(answer), ...r.shuffle(pool).slice(0, 3)]);
   };
 
@@ -118,6 +125,7 @@ window.App = window.App || {};
     const skills = (o.skills && o.skills.length ? o.skills : App.defaultSkills(o.grade, o.topic)).filter((k) => SKILLS[k]);
     const formats = o.types.length ? o.types : ["compute"];
     const out = [];
+    const seenQ = new Set();
     for (let i = 0; i < o.count; i++) {
       const fmtType = formats[i % formats.length];
       let key = skills[i % skills.length];
@@ -127,6 +135,8 @@ window.App = window.App || {};
         if (withWord.length) key = withWord[i % withWord.length];
         p = (SKILLS[key].word || SKILLS[key].gen)(r, level);
       } else p = SKILLS[key].gen(r, level);
+      for (let tries = 0; tries < 12 && seenQ.has(p.q); tries++) p = (fmtType === "word" && SKILLS[key].word ? SKILLS[key].word : SKILLS[key].gen)(r, level);
+      seenQ.add(p.q);
       const prob = { id: App.uid(), skill: key, q: p.q, a: String(p.a), stack: p.stack || null };
       if (fmtType === "mc") { prob.type = "mc"; prob.choices = mcChoices(r, p.a, p.wrong, p.choices); }
       else if (fmtType === "word") { prob.type = "word"; }
@@ -317,7 +327,7 @@ window.App = window.App || {};
     const renderVersion = (v) => {
       header(v);
       const probs = v.problems;
-      const drill = probs.length && probs.every((p) => p.type === "compute");
+      const drill = probs.length && probs.every((p) => p.type === "compute" && (p.stack || String(p.q).length <= 32));
       if (drill) {
         const cols = Math.max(1, Math.min(4, columns)); const colW = CW / cols;
         const useStack = ws.opts.stacked && probs.some((p) => p.stack);
@@ -349,22 +359,31 @@ window.App = window.App || {};
         }
         para(p.q, x, w);
         if (p.type === "mc") {
-          y += 2; (p.choices || []).forEach((c, k) => { need(fs * 1.6); para(`${letters[k]}.  ${c}`, x + 12, w - 12, fs - 0.5); });
-          y += 10; return;
+          const ch = p.choices || [];
+          if (ch.every((c) => String(c).length <= 16)) { // short choices: one row
+            need(fs * 2); setF(fs - 0.5); const cw = (w - 12) / Math.max(4, ch.length);
+            ch.forEach((c, k) => doc.text(safe(`${letters[k]}.  ${c}`), x + 12 + k * cw, y + fs + 2)); y += fs * 1.6 + 12;
+          } else { y += 2; ch.forEach((c, k) => { need(fs * 1.6); para(`${letters[k]}.  ${c}`, x + 12, w - 12, fs - 0.5); }); y += 10; }
+          return;
         }
         if (p.type === "fill" || p.type === "compute") { if (p.type === "compute") { setF(fs); doc.setDrawColor(150); doc.line(x + 4, y + 10, x + 180, y + 10); y += 24; } else y += 12; return; }
-        if (p.type === "work" || p.type === "word") { if (ws.subject === "math") { doc.setDrawColor(200); const h = p.type === "work" ? 110 : 80; need(h + 30); doc.roundedRect(x, y + 4, w, h, 6, 6); y += h + 10; setF(fs); doc.text("Answer: ____________________", x, y + fs); y += fs + 16; } else lines(p.type === "work" ? 5 : 3, x); return; }
+        if (p.type === "work" || p.type === "word") { if (ws.subject === "math") { doc.setDrawColor(200); const h = p.type === "work" ? 110 : 62; need(h + 30); doc.roundedRect(x, y + 4, w, h, 6, 6); y += h + 10; setF(fs); doc.text("Answer: ____________________", x, y + fs); y += fs + 16; } else lines(p.type === "work" ? 5 : 3, x); return; }
         lines(large ? 2 : 2, x);
       });
     };
 
     ws.versions.forEach((v, vi) => { if (vi) { doc.addPage(); y = M; } renderVersion(v); });
     if (key) {
+      doc.addPage(); y = M;
+      setF(18, "bold", [15, 27, 61]); doc.text("Answer key", M, y + 18); y += 26;
+      setF(10, "normal", [100, 100, 120]); doc.text(safe(ws.title), M, y + 10); y += 24;
       ws.versions.forEach((v) => {
-        doc.addPage(); y = M;
-        setF(16, "bold", [15, 27, 61]); doc.text(safe(`Answer key${v.label ? " - " + v.label : ""}`), M, y + 16); y += 26;
-        setF(10, "normal", [100, 100, 120]); doc.text(safe(ws.title), M, y + 10); y += 22;
-        v.problems.forEach((p, i) => { need(30); para(`${i + 1}.  ${App.worksheetAnswer(p)}`, M, CW, 11); y += 3; });
+        const ans = v.problems.map((p, i) => `${i + 1}) ${App.worksheetAnswer(p)}`);
+        const short = ans.every((x) => x.length <= 28);
+        need(short ? 60 : 50);
+        if (v.label || ws.versions.length > 1) { setF(12, "bold", [255, 107, 44]); doc.text(safe(v.label || ""), M, y + 12); y += 18; }
+        if (short) { para(ans.join("     "), M, CW, 10.5); y += 12; }
+        else { v.problems.forEach((p, i) => { need(24); para(ans[i], M, CW, 10.5); y += 2; }); y += 10; }
       });
     }
     const pages = doc.getNumberOfPages();

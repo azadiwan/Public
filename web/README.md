@@ -54,6 +54,10 @@ web/
   api/               Optional Claude-powered serverless functions
 ```
 
+## Search (SEO) pages
+
+`node tools/build-seo.mjs` (from the repo root) regenerates the static search pages in `web/worksheets/` and `web/lesson-plans/` (one per math skill × grade and per library topic, each with a real sample and an answer key), plus `web/sitemap.xml` and `web/robots.txt`. Re-run it after adding topics or skills. Pages link into the app with presets such as `/#/worksheets?subject=math&grade=4&skills=long_div&go=1` and `/#/build?subject=science&grade=6&topic=Photosynthesis`.
+
 ## Rename or rebrand
 
 The brand name is in `js/data.js` (`App.BRAND`), in `index.html`, and in the theme colors in `css/styles.css` (`--navy`, `--orange`).

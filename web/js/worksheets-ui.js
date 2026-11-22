@@ -31,7 +31,23 @@ App.views = App.views || {};
   };
 
   let view;
-  App.views.worksheets = (el) => { view = el; if (!el._wsBound) bind(el); render(); };
+  // Deep links from search pages, e.g. #/worksheets?subject=math&grade=4&skills=mult_facts&go=1
+  function applyPreset() {
+    const q = new URLSearchParams((location.hash.split("?")[1] || ""));
+    if (![...q.keys()].length) return false;
+    const o = W.o;
+    if (q.get("subject") && App.SUBJECTS[q.get("subject")]) o.subject = q.get("subject");
+    if (q.get("grade") && App.GRADES.includes(q.get("grade"))) o.grade = q.get("grade");
+    if (q.get("skills")) o.skills = q.get("skills").split(",").filter((k) => App.MATH_SKILLS[k]);
+    if (q.get("topic")) o.topic = q.get("topic");
+    if (q.get("types")) o.types = q.get("types").split(",").filter((t) => App.WS_TYPES[t]);
+    else o.types = o.subject === "math" ? ["compute", "word"] : ["mc", "fill", "short", "match"];
+    o.title = ""; o.leveled = false; o.versions = 1;
+    W.view = "setup"; save();
+    history.replaceState(null, "", "#/worksheets");
+    return q.get("go") === "1";
+  }
+  App.views.worksheets = (el) => { view = el; if (!el._wsBound) bind(el); const go = applyPreset(); render(); if (go) create(); };
 
   const isMath = () => W.o.subject === "math";
   const allowedTypes = () => (isMath() ? ["compute", "word", "mc", "work"] : ["mc", "short", "fill", "tf", "match", "work"]).map((k) => [k, App.WS_TYPES[k]]);
@@ -110,14 +126,14 @@ App.views = App.views || {};
 
   function paperHtml(ws, v) {
     const probs = v.problems;
-    const drill = probs.every((p) => p.type === "compute");
+    const drill = probs.every((p) => p.type === "compute" && (p.stack || String(p.q).length <= 32));
     const letters = "ABCDEFGH";
     const item = (p, i) => {
       const n = `<b class="wq-n">${i + 1}.</b>`;
       if (drill && ws.opts.stacked && p.stack) return `<div class="wq stack">${n}<div class="stk"><div>${esc(typeof p.stack[0] === "number" ? p.stack[0].toLocaleString("en-US") : p.stack[0])}</div><div>${esc(p.stack[2])} ${esc(typeof p.stack[1] === "number" ? p.stack[1].toLocaleString("en-US") : p.stack[1])}</div></div></div>`;
       if (p.type === "compute") return `<div class="wq">${n} ${esc(p.q)} <span class="blank"></span></div>`;
       if (p.type === "tf") return `<div class="wq">${n} ${esc(p.q)} <span class="tf">T &nbsp; F</span></div>`;
-      if (p.type === "mc") return `<div class="wq">${n} ${esc(p.q)}<ol class="mc" type="A">${(p.choices || []).map((c) => `<li>${esc(c)}</li>`).join("")}</ol></div>`;
+      if (p.type === "mc") return `<div class="wq">${n} ${esc(p.q)}<ol class="mc${(p.choices || []).every((c) => String(c).length <= 16) ? " row" : ""}" type="A">${(p.choices || []).map((c) => `<li>${esc(c)}</li>`).join("")}</ol></div>`;
       if (p.type === "match") {
         const defs = App.worksheetAnswer(p).split(", ").map((x) => x.split("-")); // term# → letter
         const byLetter = {}; defs.forEach(([ti, L]) => (byLetter[L] = p.pairs[+ti - 1].def));
