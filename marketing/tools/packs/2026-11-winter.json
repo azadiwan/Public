@@ -1,0 +1,189 @@
+[
+ {
+  "id": "07-winter-break-math-review-3rd",
+  "title": "Winter Break Math Review (3rd Grade)",
+  "sub": "20 printable review sheets · multiplication, division, regrouping, rounding, fractions · answer keys",
+  "price": "$4.50",
+  "grade": "3",
+  "band": "Grade 3",
+  "columns": 2,
+  "theme": "winter",
+  "sheets": [
+   [
+    [
+     "mult_facts",
+     "div_facts"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    20,
+    4
+   ],
+   [
+    [
+     "add_multi",
+     "sub_multi"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    16,
+    3
+   ],
+   [
+    [
+     "rounding",
+     "frac_equiv"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    14,
+    3
+   ],
+   [
+    [
+     "area_perim"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    8,
+    2
+   ],
+   [
+    [
+     "mult_facts",
+     "div_facts",
+     "add_multi",
+     "sub_multi"
+    ],
+    1,
+    [
+     "word"
+    ],
+    4,
+    4
+   ],
+   [
+    [
+     "mult_facts",
+     "rounding",
+     "frac_equiv",
+     "frac_compare",
+     "area_perim"
+    ],
+    1,
+    [
+     "mc"
+    ],
+    10,
+    4
+   ]
+  ],
+  "labels": {
+   "mult_facts,div_facts": "multiplication & division facts",
+   "add_multi,sub_multi": "3-digit addition & subtraction",
+   "rounding,frac_equiv": "rounding & equivalent fractions",
+   "area_perim": "area & perimeter"
+  }
+ },
+ {
+  "id": "08-winter-break-math-review-5th",
+  "title": "Winter Break Math Review (5th Grade)",
+  "sub": "20 printable review sheets · multi-digit operations, decimals, fractions, order of operations · answer keys",
+  "price": "$4.50",
+  "grade": "5",
+  "band": "Grade 5",
+  "columns": 2,
+  "theme": "winter",
+  "sheets": [
+   [
+    [
+     "mult_multi",
+     "long_div"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    14,
+    4
+   ],
+   [
+    [
+     "dec_add",
+     "dec_mult"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    16,
+    3
+   ],
+   [
+    [
+     "frac_add_unlike",
+     "frac_mult"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    16,
+    3
+   ],
+   [
+    [
+     "order_ops"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    16,
+    2
+   ],
+   [
+    [
+     "mult_multi",
+     "long_div",
+     "dec_add"
+    ],
+    1,
+    [
+     "word"
+    ],
+    4,
+    4
+   ],
+   [
+    [
+     "frac_add_unlike",
+     "frac_mult",
+     "dec_mult",
+     "order_ops",
+     "area_perim"
+    ],
+    1,
+    [
+     "mc"
+    ],
+    10,
+    4
+   ]
+  ],
+  "labels": {
+   "mult_multi,long_div": "multi-digit multiplication & long division",
+   "dec_add,dec_mult": "decimal operations",
+   "frac_add_unlike,frac_mult": "fraction operations",
+   "order_ops": "order of operations"
+  }
+ }
+]

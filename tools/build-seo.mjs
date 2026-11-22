@@ -257,7 +257,7 @@ ${faqHtml(faq)}
   const body = `${crumbs([["Home", "/"], ["Worksheets", "/worksheets/"]])}
 <div class="seo-hero"><div><h1>Free printable K–8 worksheets</h1>
 <p class="lead">Math worksheets with new problems every time, plus science, social studies, history, ELA, reading, world languages and test prep. Every worksheet has an answer key and can be edited before you print.</p>
-<a class="btn btn-primary btn-lg" href="/#/worksheets">Open the worksheet maker →</a></div></div>
+<a class="btn btn-primary btn-lg" href="/#/worksheets">Open the worksheet maker →</a> <a class="btn btn-ghost btn-lg" href="/winter-break-math/">❄️ Winter break math packets</a></div></div>
 <h2>Math worksheets by grade</h2>
 ${Object.keys(byGrade).sort((a, b) => a - b).map((g) => `<h3>${ord(+g)}</h3><div class="chips">${byGrade[g].map((p) => `<a class="pick" href="${p.url}">${esc(p.name)}</a>`).join("")}</div>`).join("")}
 <h2 class="mt">Worksheets by subject</h2>
@@ -276,6 +276,6 @@ ${Object.entries(App.SUBJECTS).map(([sid, s]) => `<h3>${s.icon} ${esc(s.label)}<
 /* ---------- Sitemap & robots ---------- */
 const today = new Date().toISOString().slice(0, 10);
 const all = ["", ...urls].map((u) => `${SITE}/${u}`.replace(/\/+$/, "/"));
-fs.writeFileSync(path.join(WEB, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set([...all, `${SITE}/terms.html`, `${SITE}/privacy.html`])].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
+fs.writeFileSync(path.join(WEB, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set([...all, `${SITE}/winter-break-math/`, `${SITE}/terms.html`, `${SITE}/privacy.html`])].map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}\n</urlset>\n`);
 fs.writeFileSync(path.join(WEB, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${SITE}/sitemap.xml\n`);
 console.log(`math worksheet pages: ${mathPages.length}, topic worksheet pages: ${topicPages.length}, lesson plan pages: ${lessonPages.length}, sitemap URLs: ${new Set(all).size}`);

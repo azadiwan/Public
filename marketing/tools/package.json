@@ -1,0 +1,14 @@
+{
+  "name": "launchpoint-marketing-tools",
+  "private": true,
+  "type": "module",
+  "description": "Generators for LaunchPoint TpT packs, Pinterest pins and page renders",
+  "dependencies": {
+    "docx": "8.5.0",
+    "jspdf": "2.5.2",
+    "jszip": "3.10.1",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "3.11.174",
+    "pptxgenjs": "3.12.0"
+  }
+}

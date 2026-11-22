@@ -1,0 +1,362 @@
+[
+ {
+  "id": "01-multiplication-facts-3rd",
+  "title": "3rd Grade Multiplication Facts Practice",
+  "sub": "20 printable worksheets · 3 levels · answer keys",
+  "price": "$4.00",
+  "grade": "3",
+  "band": "Grade 3",
+  "stacked": true,
+  "columns": 4,
+  "sheets": [
+   [
+    [
+     "mult_facts"
+    ],
+    0,
+    [
+     "compute"
+    ],
+    24,
+    4
+   ],
+   [
+    [
+     "mult_facts"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    24,
+    6
+   ],
+   [
+    [
+     "mult_facts"
+    ],
+    2,
+    [
+     "compute"
+    ],
+    24,
+    4
+   ],
+   [
+    [
+     "mult_facts"
+    ],
+    1,
+    [
+     "word"
+    ],
+    4,
+    3
+   ],
+   [
+    [
+     "mult_facts",
+     "div_facts"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    24,
+    3
+   ]
+  ]
+ },
+ {
+  "id": "02-long-division-4th",
+  "title": "4th Grade Long Division Practice",
+  "sub": "16 worksheets · remainders · word problems · answer keys",
+  "price": "$4.00",
+  "grade": "4",
+  "band": "Grade 4",
+  "sheets": [
+   [
+    [
+     "long_div"
+    ],
+    0,
+    [
+     "compute"
+    ],
+    16,
+    4
+   ],
+   [
+    [
+     "long_div"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    16,
+    5
+   ],
+   [
+    [
+     "long_div"
+    ],
+    2,
+    [
+     "compute"
+    ],
+    12,
+    3
+   ],
+   [
+    [
+     "long_div"
+    ],
+    1,
+    [
+     "word"
+    ],
+    4,
+    4
+   ]
+  ]
+ },
+ {
+  "id": "03-fractions-bundle-3-5",
+  "title": "Fractions Practice Bundle (Grades 3–5)",
+  "sub": "24 worksheets · equivalent, compare, simplify, add & subtract",
+  "price": "$6.00",
+  "grade": "4",
+  "band": "Grades 3–5",
+  "sheets": [
+   [
+    [
+     "frac_equiv"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    20,
+    5
+   ],
+   [
+    [
+     "frac_compare"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    20,
+    5
+   ],
+   [
+    [
+     "frac_simplify"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    20,
+    5
+   ],
+   [
+    [
+     "frac_add_like"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    20,
+    5
+   ],
+   [
+    [
+     "frac_equiv",
+     "frac_compare",
+     "frac_simplify",
+     "frac_add_like"
+    ],
+    1,
+    [
+     "mc"
+    ],
+    10,
+    4
+   ]
+  ]
+ },
+ {
+  "id": "04-ratios-rates-percents-6th",
+  "title": "6th Grade Ratios, Rates & Percents",
+  "sub": "18 worksheets · unit rates · percents · word problems",
+  "price": "$5.00",
+  "grade": "6",
+  "band": "Grade 6",
+  "sheets": [
+   [
+    [
+     "unit_rate"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    12,
+    4
+   ],
+   [
+    [
+     "percent_of"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    16,
+    4
+   ],
+   [
+    [
+     "unit_rate",
+     "percent_of"
+    ],
+    1,
+    [
+     "word"
+    ],
+    4,
+    6
+   ],
+   [
+    [
+     "unit_rate",
+     "percent_of"
+    ],
+    1,
+    [
+     "mc"
+    ],
+    10,
+    4
+   ]
+  ]
+ },
+ {
+  "id": "05-equations-7th",
+  "title": "One-Step & Two-Step Equations (Grades 6–7)",
+  "sub": "18 worksheets · 3 levels · word problems · answer keys",
+  "price": "$5.00",
+  "grade": "7",
+  "band": "Grades 6–7",
+  "sheets": [
+   [
+    [
+     "eq_one"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    20,
+    5
+   ],
+   [
+    [
+     "eq_two"
+    ],
+    0,
+    [
+     "compute"
+    ],
+    16,
+    4
+   ],
+   [
+    [
+     "eq_two"
+    ],
+    2,
+    [
+     "compute"
+    ],
+    16,
+    4
+   ],
+   [
+    [
+     "eq_one",
+     "eq_two"
+    ],
+    1,
+    [
+     "word",
+     "compute"
+    ],
+    8,
+    5
+   ]
+  ]
+ },
+ {
+  "id": "06-add-sub-regrouping-2-3",
+  "title": "Addition & Subtraction with Regrouping (Grades 2–3)",
+  "sub": "20 worksheets · stacked format · answer keys",
+  "price": "$4.00",
+  "grade": "3",
+  "band": "Grades 2–3",
+  "stacked": true,
+  "columns": 3,
+  "sheets": [
+   [
+    [
+     "add_multi"
+    ],
+    0,
+    [
+     "compute"
+    ],
+    18,
+    5
+   ],
+   [
+    [
+     "sub_multi"
+    ],
+    0,
+    [
+     "compute"
+    ],
+    18,
+    5
+   ],
+   [
+    [
+     "add_multi",
+     "sub_multi"
+    ],
+    1,
+    [
+     "compute"
+    ],
+    18,
+    6
+   ],
+   [
+    [
+     "add_multi",
+     "sub_multi"
+    ],
+    1,
+    [
+     "word"
+    ],
+    4,
+    4
+   ]
+  ]
+ }
+]
