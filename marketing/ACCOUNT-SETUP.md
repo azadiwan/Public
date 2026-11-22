@@ -8,7 +8,7 @@ Total time: about **35 minutes**. Every answer is filled in below, so you only c
 
 ## 1. Teachers Pay Teachers (≈15 min, then about 5 min per listing). Brings the first money soonest.
 1. Go to **teacherspayteachers.com** › **Sell on TpT** › sign up. Use **hello@launchpointeducation.com**.
-2. Choose the free **Basic** seller plan.
+2. Choose the **Basic** seller plan: a **one-time $29 fee** (not yearly). You keep 55% of each sale minus $0.30. Skip the $59.95/yr **Exclusive** plan for now: it requires selling our resources only on TpT, which conflicts with offering free versions on our own site.
 3. **Store name:** LaunchPoint Education
 4. **Store bio:** *A teacher-founded shop. Print-and-go K–8 math practice with answer keys, plus free lesson plans, slides and worksheets at launchpointeducation.com.*
 5. **Payout:** PayPal or bank. **Tax info:** your SSN or an EIN (an EIN is free from irs.gov in 10 minutes and keeps your SSN private).
