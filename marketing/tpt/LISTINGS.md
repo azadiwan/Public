@@ -2,7 +2,7 @@
 
 **Live store:** https://www.teacherspayteachers.com/store/launchpoint-education
 
-Eight ready-to-sell math practice packs, made with LaunchPoint's own worksheet engine. Every pack has a branded cover, a "How to use" page that promotes **launchpointeducation.com**, one-page practice sheets in three levels, and complete answer keys.
+Ten ready-to-sell math practice packs, made with LaunchPoint's own worksheet engine. Every pack has a branded cover, a "How to use" page that promotes **launchpointeducation.com**, one-page practice sheets in three levels, and complete answer keys.
 
 | File | Product | Pages | Suggested price |
 | --- | --- | --- | --- |
@@ -14,6 +14,8 @@ Eight ready-to-sell math practice packs, made with LaunchPoint's own worksheet e
 | `06-add-sub-regrouping-2-3.pdf` | Addition & Subtraction with Regrouping, Grades 2–3 (20 sheets) | 24 | $4.00 |
 | `07-winter-break-math-review-3rd.pdf` | Winter Break Math Review, 3rd Grade (20 sheets) ❄️ | 24 | $4.50 |
 | `08-winter-break-math-review-5th.pdf` | Winter Break Math Review, 5th Grade (20 sheets) ❄️ | 24 | $4.50 |
+| `09-winter-break-math-review-4th.pdf` | Winter Break Math Review, 4th Grade (20 sheets) ❄️ | 24 | $4.50 |
+| `10-winter-break-math-review-6th.pdf` | Winter Break Math Review, 6th Grade (20 sheets) ❄️ | 24 | $4.50 |
 
 Each `*-cover.png` is the thumbnail image for that product.
 
@@ -176,6 +178,44 @@ For each pack: **Add new resource › Digital download**, upload the PDF, add th
 > Aligned to CCSS 5.NBT.B.5, 5.NBT.B.6, 5.NBT.B.7, 5.NF.A.1, 5.NF.B.4, 5.OA.A.1.
 
 **Tags:** winter break homework, winter math, december math, 5th grade math review, decimals, fractions, long division, worksheets, answer key
+
+### 09: Winter Break Math Review (4th Grade) ❄️ *list before mid-December*
+**Title:** Winter Break Math Review 4th Grade | Long Division, Fractions, Decimals | Answer Keys
+**Grades:** 4, 5 · **Subject:** Math, Winter · **Type:** Worksheets, Homework, Review · **Price:** $4.50
+**Description:**
+> 20 print-and-go review sheets to keep 4th grade math skills sharp over winter break, or for December review in class.
+>
+> **What's inside**
+> • 4 multi-digit multiplication & long division sheets
+> • 3 equivalent & comparing fractions sheets
+> • 3 fraction & decimal operations sheets
+> • 2 place value & rounding sheets
+> • 4 word problem sheets
+> • 4 multiple-choice mixed review sheets
+> • Complete answer keys
+>
+> Aligned to CCSS 4.NBT.A.3, 4.NBT.B.5, 4.NBT.B.6, 4.NF.A.1, 4.NF.A.2, 4.NF.B.3.
+
+**Tags:** winter break homework, winter math, december math, 4th grade math review, long division, fractions, decimals, worksheets, answer key
+
+### 10: Winter Break Math Review (6th Grade) ❄️ *list before mid-December*
+**Title:** Winter Break Math Review 6th Grade | Ratios, Percents, Integers, Equations | Answer Keys
+**Grades:** 6, 7 · **Subject:** Math, Winter · **Type:** Worksheets, Homework, Review · **Price:** $4.50
+**Description:**
+> 20 print-and-go review sheets covering the big 6th grade skills, ready for winter break homework or December review.
+>
+> **What's inside**
+> • 4 unit rates & percents sheets
+> • 3 integers & one-step equations sheets
+> • 3 fraction & decimal multiplication sheets
+> • 2 order of operations & proportions sheets
+> • 4 word problem sheets (rates, discounts, test scores)
+> • 4 multiple-choice mixed review sheets
+> • Complete answer keys
+>
+> Aligned to CCSS 6.RP.A.3, 6.NS.A.1, 6.NS.B.3, 6.NS.C.5, 6.EE.A.2, 6.EE.B.7.
+
+**Tags:** winter break homework, winter math, december math, 6th grade math review, ratios, percents, integers, equations, worksheets, answer key
 
 ---
 

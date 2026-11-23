@@ -12,6 +12,7 @@ for (const pin of PINS) {
   await p.goto("http://localhost:8765/");
   let probs = [];
   if (pin.ws) probs = await p.evaluate((o) => App.buildWorksheet({ subject: "math", grade: o.grade, skills: o.skills, types: ["compute"], count: 12, difficulty: 1, versions: 1, seed: 4242, stacked: !!o.stacked }).versions[0].problems.map((x) => x.q), pin.ws);
+  const longQ = probs.some((q) => q.length > 16); if (longQ) probs = probs.slice(0, 7);
   const url = `https://www.launchpointeducation.com${pin.path}?utm_source=pinterest&utm_medium=pin&utm_campaign=${pin.id}`;
   const card = pin.ws
     ? `<div class="paper"><div class="ph"><b>${pin.title}</b><span>Name: ________</span></div><div class="grid">${probs.map((q, i) => `<div class="q"><i>${i + 1}.</i> ${q} <u></u></div>`).join("")}</div><div class="key">✓ Answer key included</div></div>`
@@ -23,7 +24,7 @@ for (const pin of PINS) {
   .s{margin-top:26px;font-size:34px;color:#cdd5ea}
   .paper{margin:auto 20px;align-self:stretch;background:#fff;color:#1c1917;border-radius:22px;padding:40px 44px;box-shadow:0 30px 60px rgba(0,0,0,.35);transform:rotate(-1.5deg)}
   .ph{display:flex;justify-content:space-between;align-items:baseline;border-bottom:3px solid #ff6b2c;padding-bottom:14px;margin-bottom:22px}.ph b{font-size:28px;color:#0f1b3d}.ph span{font-size:20px;color:#555}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:34px 30px}.q{font-size:${probs.some((q) => q.length > 18) ? 26 : 32}px;white-space:nowrap}.q i{color:#8a8f9c;font-style:normal;font-size:20px;margin-right:6px}.q u{display:inline-block;width:70px;border-bottom:2px solid #bbb}
+  .grid{display:grid;grid-template-columns:${longQ ? "1fr" : "1fr 1fr"};gap:${longQ ? "26px" : "34px 30px"}}.q{font-size:${longQ ? 30 : 32}px;white-space:nowrap}.q i{color:#8a8f9c;font-style:normal;font-size:20px;margin-right:6px}.q u{display:inline-block;width:70px;border-bottom:2px solid #bbb}
   .key{margin-top:28px;font-size:22px;color:#0f7a4a;font-weight:700}
   .slide .tagl{color:#ff6b2c;font-weight:800;letter-spacing:.08em;font-size:20px}.slide h3{font-family:Georgia,serif;font-size:42px;color:#0f1b3d;margin:12px 0 18px}.slide li{font-size:32px;line-height:1.75}
   .chips{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}.chips span{background:#f1f3f8;border-radius:999px;padding:10px 18px;font-size:20px;font-weight:600;color:#0f1b3d}

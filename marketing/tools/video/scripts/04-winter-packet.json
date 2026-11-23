@@ -1,0 +1,87 @@
+[
+ {
+  "url": "http://localhost:8765/winter-break-math/",
+  "say": "Need a winter break math packet... by tomorrow?",
+  "caption": "Need a winter break math packet by tomorrow? ❄️",
+  "card": "<div style='font-size:64px'>❄️</div><div>Winter break math packet<br>in 10 seconds</div><div style='font:600 18px Helvetica;color:#ffb38f'>Free · Grades 1–7 · Answer key</div>"
+ },
+ {
+  "say": "Go to LaunchPoint's free winter break page. It covers first through seventh grade.",
+  "caption": "Free winter break page · grades 1–7",
+  "actions": [
+   {
+    "scroll": 380,
+    "wait": 900
+   },
+   {
+    "scroll": 420,
+    "wait": 900
+   }
+  ]
+ },
+ {
+  "say": "Tap your grade. I'll do fourth.",
+  "caption": "Tap your grade (I picked 4th)",
+  "actions": [
+   {
+    "eval": "document.querySelectorAll('.wb-grid .card')[3].scrollIntoView({behavior:'smooth',block:'center'})",
+    "wait": 1200
+   },
+   {
+    "click": "text=Make a 4th grade winter packet",
+    "wait": 2200
+   }
+  ]
+ },
+ {
+  "say": "And there's your packet. Multiplication, long division, fractions, and word problems.",
+  "caption": "Multiplication, long division, fractions + word problems",
+  "actions": [
+   {
+    "scroll": 350,
+    "wait": 900
+   },
+   {
+    "scroll": 450,
+    "wait": 900
+   }
+  ]
+ },
+ {
+  "say": "The answer key is already done.",
+  "caption": "Answer key ✅ already done",
+  "actions": [
+   {
+    "eval": "window.scrollTo({top:0})",
+    "wait": 300
+   },
+   {
+    "click": "[data-ws='tab'][data-v='key']",
+    "wait": 1200
+   }
+  ]
+ },
+ {
+  "say": "Want a different version for each student? Tap new numbers.",
+  "caption": "Different version per student? Tap “New numbers” 🎲",
+  "actions": [
+   {
+    "click": "[data-ws='tab'][data-v='preview']",
+    "wait": 200
+   },
+   {
+    "click": "[data-ws='reroll']",
+    "wait": 200
+   },
+   {
+    "scroll": 120,
+    "wait": 300
+   }
+  ]
+ },
+ {
+  "say": "Download it as a PDF or Word, and you're done. Free, with no sign up, at launchpoint education dot com.",
+  "caption": "PDF or Word. Free, no sign-up 👇",
+  "card": "<div>🚀 LaunchPoint Education</div><div style='font:800 24px Helvetica;background:#ff6b2c;padding:12px 20px;border-radius:999px'>launchpointeducation.com</div><div style='font:600 16px Helvetica;color:#cdd5ea'>Free K–8 worksheets & lesson plans · Voiceover is AI-generated</div>"
+ }
+]

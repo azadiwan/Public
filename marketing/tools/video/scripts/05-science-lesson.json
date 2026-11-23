@@ -1,0 +1,78 @@
+[
+ {
+  "url": "http://localhost:8765/#/",
+  "say": "Science tomorrow, and you have nothing planned?",
+  "caption": "Science tomorrow… and nothing planned? 😅",
+  "card": "<div style='font-size:60px'>🧪</div><div>A full science lesson<br>in under a minute</div><div style='font:600 18px Helvetica;color:#ffb38f'>Free · Slides · Worksheet · Answer key</div>"
+ },
+ {
+  "goto": "http://localhost:8765/#/build?subject=science&grade=4&topic=States%20of%20matter",
+  "say": "Open LaunchPoint. Pick science, fourth grade, states of matter.",
+  "caption": "Pick subject, grade & topic",
+  "actions": [
+   {
+    "scroll": 300,
+    "wait": 900
+   },
+   {
+    "scroll": 350,
+    "wait": 900
+   }
+  ]
+ },
+ {
+  "say": "Set your time, forty-five minutes, and tap build.",
+  "caption": "Set your minutes → tap Build",
+  "actions": [
+   {
+    "eval": "document.querySelector('[data-act=generate]').scrollIntoView({behavior:'smooth',block:'center'})",
+    "wait": 1000
+   },
+   {
+    "click": "[data-act=generate]",
+    "wait": 1800
+   }
+  ]
+ },
+ {
+  "say": "You get a full lesson plan, with every minute planned. A hook, a mini lesson, practice, and an exit ticket.",
+  "caption": "Every minute planned: hook → mini-lesson → practice → exit ticket",
+  "actions": [
+   {
+    "eval": "document.querySelectorAll('[data-act=sel]')[1].click()",
+    "wait": 1200
+   },
+   {
+    "scroll": 350,
+    "wait": 900
+   },
+   {
+    "scroll": 450,
+    "wait": 900
+   }
+  ]
+ },
+ {
+  "say": "Edit anything you want. The slides and the worksheet are already made.",
+  "caption": "Edit anything ✏️ Slides + worksheet ready",
+  "actions": [
+   {
+    "eval": "window.scrollTo({top:0,behavior:'smooth'})",
+    "wait": 700
+   },
+   {
+    "eval": "[...document.querySelectorAll('button,a')].find(e=>/Slides preview/.test(e.textContent))?.click()",
+    "wait": 1200
+   },
+   {
+    "scroll": 300,
+    "wait": 800
+   }
+  ]
+ },
+ {
+  "say": "Export to PowerPoint, Google Slides, Canva, or PDF. Free for teachers, at launchpoint education dot com.",
+  "caption": "PowerPoint · Google Slides · Canva · PDF 👇",
+  "card": "<div>🚀 LaunchPoint Education</div><div style='font:800 24px Helvetica;background:#ff6b2c;padding:12px 20px;border-radius:999px'>launchpointeducation.com</div><div style='font:600 16px Helvetica;color:#cdd5ea'>Free K–8 lesson plans & worksheets · Voiceover is AI-generated</div>"
+ }
+]
