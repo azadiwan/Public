@@ -1,6 +1,6 @@
 # Outreach log
 
-Every outreach email sent on LaunchPoint's behalf is logged here: date, recipient, why they were chosen, and purpose. Rules: personal emails only, max 10/week, clear identity and one-line opt-out, never a second email without a reply.
+Every outreach email sent on LaunchPoint's behalf is logged here: date, recipient, why they were chosen, and purpose. Rules: personal emails only, max 20/week (raised from 10 on 2026-11-23 at the owner's request), clear identity and one-line opt-out, never a second email without a reply.
 
 | Date | To | Why them | Purpose | Reply |
 | --- | --- | --- | --- | --- |
@@ -11,7 +11,12 @@ Every outreach email sent on LaunchPoint's behalf is logged here: date, recipien
 | 2026-11-23 | Katherine Farmer, Murray State University library (email on the guide) | Curates Education (P-12) "Math Websites" | Suggest the worksheet maker | pending |
 | 2026-11-23 | Logan Rath, SUNY Brockport library (email on the guide) | Curates "Math Resources for K-12" | Suggest worksheets + lesson plans | pending |
 | 2026-11-23 | Towson University library (email on the guide page) | "Books for Teaching Math: Additional Resources" | Suggest the worksheet maker | pending |
-| 2026-11-23 | ReadySetResearch "Teacher Resources" guide owner (email on the guide) | K-12 library guide of teacher resources | Suggest the site + winter packets | pending |
+| 2026-11-23 | Kathy Fester, ReadySetResearch "Teacher Resources" guide (email on the guide) | K-12 library guide of teacher resources | Suggest the site + winter packets | **YES: added to the guide** (https://readysetresearch.libguides.com/teacherresources); thank-you sent |
+| 2026-11-23 | Brad Dennis, Western Michigan University library (email on the guide) | Owns the Education "Lesson Plans" guide; Michigan neighbor | Suggest lesson plans + worksheets | pending |
+| 2026-11-23 | Central Michigan University library reference desk (email on the guide) | "K-12 Teacher's Resources: Web Resources" guide; Michigan neighbor | Suggest the site | pending |
+| 2026-11-23 | Amanda, University of Rhode Island library (email on the guide) | "Websites for Lesson Planning" guide | Suggest the lesson builder | pending |
+| 2026-11-23 | Bethel College (KS) library (email on the guide) | Education guide "Resources for Math" | Suggest the worksheet maker | pending |
+| 2026-11-23 | Sandra Anderson, Alberta Teachers' Association library (email on the guide) | Mathematics "Lesson Plans" guide | Suggest worksheets + lesson plans | pending |
 
 ## 2026-11-23 notes
 Web access was enabled after the owner approved it. Of about 20 sites checked, most use contact forms only (skipped; we only email published addresses). Excluded: Ditch That Textbook (states it doesn't accept unsolicited pitches), and sites that sell competing math curriculum (Math in Demand, Maneuvering the Middle). Next: homeschool bloggers and school or library free-resource pages with published emails.
@@ -22,3 +27,6 @@ Web access was enabled after the owner approved it. Of about 20 sites checked, m
 - How to Homeschool for Free: use its submission form
 
 Suggested entry for all three: **LaunchPoint Education: free K–8 math worksheet maker with answer keys.** "Pick a grade and skill and print a worksheet with fresh problems and an answer key every time. No sign-up." Link: https://www.launchpointeducation.com/worksheets/ (or https://www.launchpointeducation.com/winter-break-math/ for December).
+
+## What's working (2026-11-23)
+University and school library research guides (LibGuides) convert best: 1 of 8 added us within hours. Look for the guide owner's own email in the page; skip guides that list only a form. Next: more education LibGuides (search "libguides lesson plans", "curriculum materials center", state by state), plus homeschool sites that publish an email.
