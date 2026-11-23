@@ -1,0 +1,8 @@
+[
+ { "id": "09-winter-break-math-review-4th", "title": "Winter Break Math Review (4th Grade)", "sub": "20 printable review sheets · multiplication, long division, fractions, decimals · answer keys", "price": "$4.50", "grade": "4", "band": "Grade 4", "columns": 2, "theme": "winter",
+   "labels": { "mult_multi,long_div": "multi-digit multiplication & long division", "frac_equiv,frac_compare": "equivalent & comparing fractions", "frac_add_like,dec_add": "fraction & decimal operations", "rounding,place_value": "place value & rounding" },
+   "sheets": [[["mult_multi","long_div"],1,["compute"],14,4],[["frac_equiv","frac_compare"],1,["compute"],16,3],[["frac_add_like","dec_add"],1,["compute"],16,3],[["rounding","place_value"],1,["compute"],12,2],[["mult_multi","long_div","dec_add"],1,["word"],4,4],[["long_div","frac_equiv","frac_compare","area_perim","rounding"],1,["mc"],10,4]] },
+ { "id": "10-winter-break-math-review-6th", "title": "Winter Break Math Review (6th Grade)", "sub": "20 printable review sheets · ratios, percents, integers, equations, fractions · answer keys", "price": "$4.50", "grade": "6", "band": "Grade 6", "columns": 2, "theme": "winter",
+   "labels": { "unit_rate,percent_of": "unit rates & percents", "integers,eq_one": "integers & one-step equations", "frac_mult,dec_mult": "fraction & decimal multiplication", "order_ops,ratio_prop": "order of operations & proportions" },
+   "sheets": [[["unit_rate","percent_of"],1,["compute"],12,4],[["integers","eq_one"],1,["compute"],16,3],[["frac_mult","dec_mult"],1,["compute"],16,3],[["order_ops","ratio_prop"],1,["compute"],14,2],[["unit_rate","percent_of","eq_one"],1,["word"],4,4],[["percent_of","integers","eq_one","frac_mult","ratio_prop"],1,["mc"],10,4]] }
+]

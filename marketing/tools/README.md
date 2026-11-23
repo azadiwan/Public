@@ -19,3 +19,12 @@ python3 -m http.server 8765 -d web &          # the generators drive the real si
 **Pin spec** (`pins/*.json`): `{id, kicker, title, sub, path}` plus either `ws: {grade, skills[], stacked}` (shows real generated problems) or `lesson: {h, items[]}`. Lesson-pin bullets must match the real page at `path`.
 
 Always look at the rendered pages before shipping: check answer keys by hand and make sure nothing overlaps.
+
+## Videos (`video/`)
+Narrated 1080×1920 screen recordings of the real site, with captions burned in.
+```bash
+python3 -m pip install kokoro-onnx soundfile          # voice engine (open-source Kokoro)
+mkdir -p /tmp/kok && cd /tmp/kok && for f in kokoro-v1.0.onnx voices-v1.0.bin; do curl -sLO https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/$f; done; cd -
+marketing/tools/video/make.sh marketing/tools/video/scripts/<script>.json /tmp/out.mp4   # needs the web server on :8765
+```
+A script is a list of steps: `say` (voiceover), `caption`, optional `card` (full-screen title HTML), `goto`, and `actions` (`click` selector, `scroll` px, `eval` JS, `wait` ms). Each step's frames are timed to its voice line. The end card must say the voiceover is AI-generated, and the TikTok "AI-generated content" label must be on.

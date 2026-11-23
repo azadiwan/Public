@@ -348,6 +348,16 @@ textarea.input { resize: vertical; min-height: 80px; line-height: 1.45; }
 .seo h2 { font-size: 20px; }
 .seo h3 { margin: 18px 0 8px; }
 .seo .chips a.pick { text-decoration: none; }
-@media (max-width: 900px) { .seo-grid { grid-template-columns: 1fr; } .seo-side { position: static; } .seo .nav-links { display: none !important; } }
+@media (max-width: 900px) { .seo-grid { grid-template-columns: 1fr; } .seo-side { position: static; } }
 .wq ol.mc.row { display: flex; flex-wrap: wrap; gap: 4px 28px; }
 .wq ol.mc.row li { margin-left: 4px; }
+
+/* Static pages (search pages, winter page, terms) use an always-visible link row instead of the app's toggle menu. */
+@media (max-width: 860px) {
+  .nav-links[style] { display: flex !important; position: static; flex-direction: row; padding: 0; border: 0; background: none; gap: 0; margin-left: auto; }
+  .nav-links[style] a { padding: 6px 6px; font-size: 13px; white-space: nowrap; }
+  .nav .container:has(.nav-links[style]) .logo small { display: none; }
+}
+@media (max-width: 480px) { .nav-links[style] a:first-child { display: none; } }
+@media (max-width: 400px) { .nav .container:has(.nav-links[style]) .logo span:not(.logo-mark) { display: none; } }
+@media (max-width: 480px) { .seo .btn { white-space: normal; max-width: 100%; text-align: center; } }

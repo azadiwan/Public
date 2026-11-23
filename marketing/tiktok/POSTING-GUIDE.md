@@ -99,3 +99,19 @@ The voice is a generated narrator voice (Kokoro, an open-source voice licensed f
 - **Views and average watch time:** if people drop off in the first 2 seconds, test a new hook card.
 - **Profile visits and link clicks:** this is what actually matters.
 - **Comments:** reply to every teacher question within a day. Replies with video are great follow-up content.
+
+---
+
+## Video 4: Winter break packet (week of Nov 23)
+**Caption:**
+> Winter break math packet in 10 seconds ❄️ Pick a grade (1–7) → printable review + answer key → tap "New numbers" for a different version per student. Free, no sign-up: launchpointeducation.com/winter-break-math
+>
+> #teachersoftiktok #teachertok #winterbreak #mathteacher #elementaryteacher #4thgradeteacher #teacherhacks
+
+## Video 5: Science lesson in under a minute (week of Nov 23)
+**Caption:**
+> Science tomorrow and nothing planned? 🧪 Pick subject, grade and topic → a full timed lesson with slides, worksheet and answer key. Export to PowerPoint, Google Slides or Canva. Free at launchpointeducation.com
+>
+> #teachersoftiktok #teachertok #scienceteacher #lessonplanning #elementaryteacher #teachertips
+
+For both: keep the original sound (it's the voiceover) and turn ON "AI-generated content".
