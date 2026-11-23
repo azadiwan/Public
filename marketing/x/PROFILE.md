@@ -15,3 +15,8 @@
 > Pick a topic, grade and minutes → a full timed lesson plan with slides, a worksheet and an answer key. Free, no sign-up.
 >
 > ❄️ Need December practice? Free winter break math packets, grades 1–7: launchpointeducation.com/winter-break-math
+
+## Status (2026-11-23)
+- Connected to Buffer (channel "Launchpointedu X Free Profile", id 6b045c778541f09ecb77c986).
+- First post live: https://x.com/Launchpointedu/status/2124888988108341277. Pin it to the profile.
+- Daily posts scheduled through Nov 29 (12:30pm ET; Thanksgiving 10am; Sunday 4:30pm).
