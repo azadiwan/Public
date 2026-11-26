@@ -53,11 +53,11 @@ const DIAGRAM_RULES = `Diagram problems (type "diagram") fill diagram{} and set 
 - "cycle": 4-6 stages in a repeating cycle, in order (e.g. water cycle, life cycle, rock cycle). Leave 2-4 nodes blank (blank:true); the rest are given as clues.
 - "sequence": 4-6 steps in order, a flow or chain (e.g. a food chain, steps of a process, energy transfer). Leave 2-4 blank.
 - "sort": a 2-3 column sorting chart. columns[] are the headings; every node is an item with group = its column index (0-based); all nodes are blank:true and all go in the word bank.
-For cycle and sequence, wordBank lists the blank labels plus 1-2 plausible distractors, shuffled. Labels are 1-4 words. question gives the directions. answer lists the correct labels for the blanks in order (for sort: "Heading: item, item; Heading: item"). Use group -1 for cycle and sequence nodes.`;
+For cycle and sequence, wordBank lists the blank labels plus 1-2 plausible distractors, shuffled. Labels are 1-4 words. Every node and every link must be scientifically correct and stated in or directly supported by the passage (for a food chain, each arrow means "is eaten by" and the passage must say so). Arrows and boxes are already printed, so never ask students to draw arrows. question gives the directions. answer lists the correct labels for the blanks in order (for sort: "Heading: item, item; Heading: item"). Use group -1 for cycle and sequence nodes.`;
 const GRAPH_RULES = `Graph problems (type "graph") fill graph{} and set diagram.kind "none" with empty arrays. Use realistic data from an investigation tied to the topic (4-7 points; x is a short category or time label, y a number).
 - mode "plot": students draw the graph from the data table on a blank grid. question has the directions plus 1-2 follow-up questions about the data, labeled a) b) c).
 - mode "read": the graph is printed for the student. question asks 2-3 labeled questions (a) b) c)) that require reading and interpreting it.
-answer gives the full answer to every part. Use "bar" for categories and "line" for change over time.`;
+answer gives the full answer to every part. Double-check every number in the answer against the data points. Use "bar" for categories and "line" for change over time.`;
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
