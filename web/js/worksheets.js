@@ -192,7 +192,7 @@ window.App = window.App || {};
       ],
       word: data.qs.map(([q, a]) => () => ({ q, a })),
     };
-    const types = o.types.filter((ty) => ty !== "match" && ty !== "compute");
+    const types = o.types.filter((ty) => !["match", "compute", "diagram", "graph"].includes(ty));
     const out = [];
     if (o.types.includes("match")) out.push({ id: App.uid(), type: "match", q: "Match each word to its meaning.", pairs: data.vocab.slice(0, 8).map(([t2, d2]) => ({ term: t2, def: d2 })), a: "" });
     const use = types.length ? types : ["mc", "short"];
@@ -254,8 +254,19 @@ window.App = window.App || {};
 
   /* Normalize problems returned by the server. */
   App.normalizeWorksheetProblems = (list) => (Array.isArray(list) ? list : []).map((p) => {
-    const type = ["mc", "short", "fill", "tf", "match", "work", "word", "compute"].includes(p.type) ? p.type : "short";
+    let type = ["mc", "short", "fill", "tf", "match", "work", "word", "compute", "diagram", "graph"].includes(p.type) ? p.type : "short";
     const out = { id: App.uid(), type, q: String(p.question || p.q || ""), a: String(p.answer || p.a || "") };
+    if (type === "diagram") {
+      const d = p.diagram || {};
+      out.diagram = { kind: ["cycle", "sequence", "sort"].includes(d.kind) ? d.kind : "sequence", nodes: (d.nodes || []).slice(0, 12).map((n) => ({ label: String(n.label || ""), blank: !!n.blank, group: +n.group })), columns: (d.columns || []).slice(0, 3).map(String), wordBank: (d.wordBank || []).slice(0, 12).map(String) };
+      if (out.diagram.kind === "sort") out.diagram.nodes.forEach((n) => (n.blank = true));
+      if (!out.diagram.nodes.length) out.type = "work";
+    }
+    if (type === "graph") {
+      const g = p.graph || {};
+      out.graph = { mode: g.mode === "read" ? "read" : "plot", chart: g.chart === "line" ? "line" : "bar", title: String(g.title || ""), xLabel: String(g.xLabel || ""), yLabel: String(g.yLabel || ""), points: (g.points || []).slice(0, 10).map((x) => ({ x: String(x.x), y: +x.y || 0 })) };
+      if (!out.graph.points.length) out.type = "work";
+    }
     if (type === "mc") out.choices = (p.choices || []).map(String).slice(0, 5);
     if (type === "match") out.pairs = (p.pairs || []).map((x) => ({ term: String(x.term || ""), def: String(x.def || x.definition || "") }));
     if (p.explanation) out.explain = String(p.explanation);
@@ -271,6 +282,8 @@ window.App = window.App || {};
     tf: { label: "True / False", hint: "Circle T or F" },
     match: { label: "Vocabulary matching", hint: "Words to meanings" },
     work: { label: "Show your work / explain", hint: "Space to work or write" },
+    diagram: { label: "Diagram to complete", science: true, hint: "Fill in a cycle, sequence or sorting chart" },
+    graph: { label: "Graph or data", science: true, hint: "Plot data or read a graph" },
   };
 
   /* ---------- Exports ---------- */
@@ -312,7 +325,15 @@ window.App = window.App || {};
       setF(11); doc.setTextColor(40); doc.text("Name: ______________________________", M, y + 10); doc.text("Date: ____________", M + 290, y + 10); doc.text("Score: ______", W - M - 80, y + 10); y += 24;
       doc.setDrawColor(255, 107, 44); doc.setLineWidth(1.5); doc.line(M, y, W - M, y); doc.setLineWidth(0.5); y += 12;
       para(ws.instructions, M, CW, fs - 1, "italic"); y += 8;
+      if (ws.passage && ws.passage.paragraphs && ws.passage.paragraphs.length) {
+        need(60); setF(fs + 3, "bold", [15, 27, 61]); doc.text(safe(ws.passage.title || "Reading passage"), M, y + fs + 2); y += fs + 14;
+        ws.passage.paragraphs.forEach((pg) => { setF(fs); doc.splitTextToSize(safe(pg), CW).forEach((ln) => { need(fs * 1.5); doc.text(ln, M, y + fs); y += fs * 1.45; }); y += 8; });
+        need(40); doc.setDrawColor(255, 107, 44); doc.line(M, y, W - M, y); y += 14;
+        setF(fs, "bold", [15, 27, 61]); doc.text("Questions", M, y + fs); y += fs + 12;
+      }
     };
+    const pics = {};
+    for (const v of ws.versions) for (const p of v.problems) if (p.type === "diagram" || p.type === "graph") pics[p.id] = await App.wsVisualPng(p);
 
     const stacked = (p, x, colW, num) => {
       const [a, b, op] = p.stack; const sz = large ? 22 : 18; setF(sz, "normal");
@@ -347,6 +368,16 @@ window.App = window.App || {};
       }
       probs.forEach((p, i) => {
         const n = i + 1;
+        const pic = pics[p.id];
+        if (pic) {
+          const iw = Math.min(CW - 22, p.type === "graph" ? 400 : 370), ih = (pic.h / pic.w) * iw;
+          need(ih + 40 + doc.splitTextToSize(safe(p.q), CW - 22).length * fs * 1.3 + (p.type === "graph" ? 90 : 0));
+          setF(fs, "bold", [15, 27, 61]); doc.text(`${n}.`, M, y + fs);
+          para(p.q, M + 22, CW - 22); y += 6;
+          doc.addImage(pic.jpeg, "JPEG", M + 22, y, iw, ih); y += ih + 10;
+          if (p.type === "graph") lines(3, M + 22); else y += 8;
+          return;
+        }
         need(p.type === "work" ? 150 : p.type === "match" ? 60 + p.pairs.length * 34 : 70);
         setF(fs, "bold", [15, 27, 61]); doc.text(`${n}.`, M, y + fs);
         const x = M + 22, w = CW - 22;
@@ -393,7 +424,9 @@ window.App = window.App || {};
 
   App.exportWorksheetDocx = async (ws, { key = true } = {}) => {
     await App.loadLib("docx");
-    const { Document, Packer, Paragraph, TextRun, HeadingLevel, PageBreak, Table, TableRow, TableCell, WidthType } = window.docx;
+    const { Document, Packer, Paragraph, TextRun, HeadingLevel, PageBreak, Table, TableRow, TableCell, WidthType, ImageRun } = window.docx;
+    const pics = {};
+    for (const v of ws.versions) for (const p of v.problems) if (p.type === "diagram" || p.type === "graph") pics[p.id] = await App.wsVisualPng(p);
     const P = (text, o = {}) => new Paragraph({ spacing: { after: o.after ?? 120 }, indent: o.indent ? { left: o.indent } : undefined, children: [new TextRun({ text, bold: o.bold, italics: o.italic, size: o.size })] });
     const blank = (n) => Array.from({ length: n }, () => P("_______________________________________________________________", { after: 200 }));
     const children = [];
@@ -403,7 +436,19 @@ window.App = window.App || {};
       children.push(P(`${ws.subjectLabel} · ${gradeLabel(ws.grade)}`, { italic: true }));
       children.push(P("Name: ______________________    Date: ____________    Score: ______"));
       children.push(P(ws.instructions, { italic: true, after: 240 }));
+      if (ws.passage && ws.passage.paragraphs && ws.passage.paragraphs.length) {
+        children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(ws.passage.title || "Reading passage")] }));
+        ws.passage.paragraphs.forEach((pg) => children.push(P(pg, { after: 160 })));
+        children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Questions")] }));
+      }
       v.problems.forEach((p, i) => {
+        const pic = pics[p.id];
+        if (pic) {
+          children.push(P(`${i + 1}. ${p.q}`, { bold: true }));
+          children.push(new Paragraph({ spacing: { after: 160 }, children: [new ImageRun({ data: pic.bytes, transformation: { width: 560, height: Math.round((pic.h / pic.w) * 560) } })] }));
+          children.push(...blank(p.type === "graph" ? 4 : 1));
+          return;
+        }
         if (p.type === "match") {
           children.push(P(`${i + 1}. ${p.q}`, { bold: true }));
           const ord = matchOrder(p);
@@ -431,7 +476,7 @@ window.App = window.App || {};
     const rows = [["Question", "Answer 1", "Answer 2", "Answer 3", "Answer 4", "Correct answer", "Time limit (sec)"]];
     const r = rng(ws.seed);
     ws.versions[0].problems.forEach((p) => {
-      if (p.type === "match") return;
+      if (["match", "diagram", "graph"].includes(p.type)) return;
       let choices = p.type === "mc" ? (p.choices || []).slice(0, 4) : p.type === "tf" ? ["True", "False"] : mcChoices(r, p.a, [], null).slice(0, 4);
       if (!choices.includes(p.a)) choices = [p.a, ...choices.slice(0, 3)];
       while (choices.length < 2) choices.push("—");
@@ -441,7 +486,7 @@ window.App = window.App || {};
   };
 
   App.exportWorksheetFlashcards = (ws) => {
-    const body = ws.versions[0].problems.flatMap((p) => (p.type === "match" ? p.pairs.map((x) => `${x.term}\t${x.def}`) : [`${p.q}\t${App.worksheetAnswer(p)}`])).join("\n");
+    const body = ws.versions[0].problems.filter((p) => p.type !== "diagram" && p.type !== "graph").flatMap((p) => (p.type === "match" ? p.pairs.map((x) => `${x.term}\t${x.def}`) : [`${p.q}\t${App.worksheetAnswer(p)}`])).join("\n");
     App.download(new Blob([body], { type: "text/plain" }), `${slug(ws.title)}-flashcards.txt`);
   };
 })();
