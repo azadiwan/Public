@@ -43,7 +43,7 @@ App.views = App.views || {};
       if (this.isPro()) return `<p class="hint" style="margin:6px 0 0">⭐ Pro: unlimited full lesson plans.</p>`;
       if (!this.config || !this.config.enabled) return "";
       const l = this.left();
-      return `<p class="hint" style="margin:6px 0 0">${l} of ${FREE_PER_MONTH} free full lesson plans left this month · <a href="#/pro">Go unlimited</a></p>`;
+      return `<p class="hint" style="margin:6px 0 0">${l} of ${FREE_PER_MONTH} free AI creations left this month · <a href="#/pro">Go unlimited</a></p>`;
     },
     async loadConfig() {
       if (this.config) return this.config;
@@ -71,7 +71,7 @@ App.views = App.views || {};
       }
       m.className = "overlay show";
       m.innerHTML = `<div class="box" style="max-width:460px;text-align:left">
-        <h2 style="margin:0 0 8px;font-family:var(--display)">You've used this month's ${FREE_PER_MONTH} free full lesson plans</h2>
+        <h2 style="margin:0 0 8px;font-family:var(--display)">You've used this month's ${FREE_PER_MONTH} free AI creations</h2>
         <p class="muted" style="margin:0 0 14px">Templates and math worksheets are still unlimited and free. For unlimited full lesson plans, custom worksheets and rewrites on any topic, go Pro.</p>
         <p style="margin:0 0 16px"><b>$9/month</b> or <b>$59/year</b> (save 45%). Cancel anytime.</p>
         <div class="row" style="gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="#/pro" data-close>See Pro</a><button class="btn btn-ghost" data-close>Not now</button></div>
@@ -116,10 +116,10 @@ App.views = App.views || {};
           <div class="row" style="gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="#/build">Build a lesson</a><button class="btn btn-ghost" id="proPortal">Manage or cancel plan</button></div></div>`
       : `<div class="pricing" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
           <div class="plan"><h3>Free</h3><div class="price">$0</div><p class="muted">For trying it out and everyday planning.</p>
-            <ul><li>${FREE_PER_MONTH} full custom lesson plans a month</li><li>Unlimited template lessons &amp; units</li><li>Unlimited math worksheets with answer keys</li><li>All export formats</li><li>Upload &amp; improve quality report</li></ul>
+            <ul><li>${FREE_PER_MONTH} AI creations a month (full lesson plans, science or custom worksheets)</li><li>Unlimited template lessons &amp; units</li><li>Unlimited math worksheets with answer keys</li><li>All export formats</li><li>Upload &amp; improve quality report</li></ul>
             <p class="hint">${P.left()} of ${FREE_PER_MONTH} left this month</p></div>
           <div class="plan featured"><h3>Pro monthly</h3><div class="price">$9<small>/month</small></div><p class="muted">For teachers who plan every week.</p>
-            <ul><li>Unlimited full lesson plans on any topic or standard</li><li>Unlimited custom worksheets for any subject</li><li>Unlimited deep rewrites of your uploaded lessons</li><li>Cancel anytime</li></ul>
+            <ul><li>Unlimited full lesson plans on any topic or standard</li><li>Unlimited science worksheets with reading passages, diagrams &amp; graphs</li><li>Unlimited custom worksheets for any subject</li><li>Unlimited deep rewrites of your uploaded lessons</li><li>Cancel anytime</li></ul>
             ${cfg.enabled ? `<a class="btn btn-primary" href="${esc(cfg.links.monthly)}">Go Pro: $9/month</a>` : `<button class="btn btn-primary" disabled>Opening very soon</button>`}</div>
           <div class="plan"><h3>Pro yearly</h3><div class="price">$59<small>/year</small></div><p class="muted">Everything in Pro. Save 45% (about $4.92/month).</p>
             <ul><li>Everything in Pro monthly</li><li>One payment for the whole school year</li><li>Easy to expense or reimburse</li><li>Cancel anytime</li></ul>
@@ -135,7 +135,7 @@ App.views = App.views || {};
       <div class="faq mt"><details><summary>How does billing work?</summary><p>Pro renews automatically each month or year until you cancel. Cancel anytime from this page with "Manage or cancel plan". You keep Pro until the end of the period you paid for.</p></details>
         <details><summary>Can my school pay?</summary><p>Yes. The yearly plan works well for reimbursement, and we can invoice schools for several teachers. Email <a href="mailto:hello@launchpointeducation.com">hello@launchpointeducation.com</a>.</p></details>
         <details><summary>Prefer ready-made packs?</summary><p>Our print-and-go practice packs with answer keys are on <a href="https://www.teacherspayteachers.com/store/launchpoint-education" target="_blank" rel="noopener">Teachers Pay Teachers</a>.</p></details>
-        <details><summary>What stays free?</summary><p>Template lessons and units, every export format, math worksheets with answer keys, and ${FREE_PER_MONTH} full custom lesson plans every month.</p></details></div>
+        <details><summary>What stays free?</summary><p>Template lessons and units, every export format, math worksheets with answer keys, and ${FREE_PER_MONTH} AI creations every month (a full lesson plan, a science worksheet with a reading passage, or a custom worksheet each count as one).</p></details></div>
       <p class="hint mt"><a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a></p></div>`;
     const portal = $("#proPortal", view);
     if (portal) portal.addEventListener("click", async () => {
