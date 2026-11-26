@@ -10,12 +10,32 @@ App.views = App.views || {};
     get(k, f) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : f; } catch { return f; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
   };
+  // Science topics for passage-based worksheets, each with specific focus options.
+  const SCI = {
+    "Ecosystems & food webs": ["4-7", ["Tropical rainforest", "Desert", "Ocean & coral reefs", "Arctic tundra", "Grasslands & savannas", "Temperate forest", "Ponds, lakes & rivers", "Wetlands", "Food chains & energy pyramids", "Decomposers", "Invasive species"]],
+    "Plants & photosynthesis": ["3-7", ["Photosynthesis: inputs & outputs", "Parts of a plant & their jobs", "Plant life cycle", "Pollination & seed dispersal", "Plant adaptations"]],
+    "Animals & adaptations": ["2-5", ["Animal adaptations", "Life cycle of a frog", "Life cycle of a butterfly", "Habitats", "Camouflage & mimicry", "Migration & hibernation", "Vertebrates & invertebrates"]],
+    "Human body systems": ["3-7", ["Digestive system", "Circulatory system", "Respiratory system", "Skeletal & muscular systems", "Nervous system & the senses"]],
+    "Cells": ["6-8", ["Plant vs. animal cells", "Cell organelles & their jobs", "Cell theory", "Single-celled organisms", "Cell division (mitosis)"]],
+    "Heredity & genetics": ["6-8", ["Inherited vs. learned traits", "Genes & DNA", "Punnett squares", "Natural selection"]],
+    "States of matter": ["2-5", ["Solids, liquids & gases", "Melting & freezing", "Evaporation & condensation", "The particle model", "Mixtures & solutions"]],
+    "Chemical & physical changes": ["5-8", ["Physical vs. chemical changes", "Atoms & molecules", "The periodic table", "Conservation of mass"]],
+    "Forces & motion": ["3-8", ["Gravity", "Friction", "Newton's three laws", "Balanced & unbalanced forces", "Magnets", "Simple machines", "Speed & motion graphs"]],
+    "Energy": ["4-8", ["Forms of energy", "Energy transfer", "Heat: conduction, convection & radiation", "Electricity & circuits", "Renewable & nonrenewable energy", "Light waves", "Sound waves"]],
+    "The water cycle": ["2-5", ["Stages of the water cycle", "Clouds & precipitation", "Groundwater & runoff", "The water cycle & weather"]],
+    "Weather & climate": ["2-6", ["Weather tools & measurement", "Types of clouds", "Severe weather", "Climate zones", "Why we have seasons", "Climate change"]],
+    "Earth's changing surface": ["3-7", ["The rock cycle", "Weathering & erosion", "Plate tectonics", "Volcanoes", "Earthquakes", "Fossils", "Soil"]],
+    "Space": ["1-8", ["The sun, Earth & moon", "Moon phases", "Day & night", "Planets of the solar system", "Stars & galaxies", "Gravity in space"]],
+    "Engineering & design": ["3-8", ["The engineering design process", "Building strong bridges", "Designing a water filter"]],
+  };
+  const isSci = () => W.o.subject === "science";
+  const effTopic = (o) => (o.focus ? `${o.topic}: ${o.focus}` : o.topic);
   const gradeLabel = (g) => (g === "K" ? "Kindergarten" : `Grade ${g}`);
   const toast = (msg, err) => { const t = $("#toast"); t.textContent = msg; t.className = "toast show" + (err ? " err" : ""); clearTimeout(toast._t); toast._t = setTimeout(() => (t.className = "toast"), err ? 5000 : 2600); };
   const busy = (on, msg = "Creating your worksheet…") => { $("#overlay").classList.toggle("show", on); $("#overlayMsg").textContent = msg; $("#overlaySub").textContent = ""; };
 
   const W = {
-    o: Object.assign({ subject: "math", grade: "4", topic: "", skills: ["mult_facts", "div_facts"], types: ["compute"], count: 20, difficulty: 1, versions: 1, leveled: false, stacked: true, large: false, key: true, columns: 2, title: "", instructions: "", custom: true }, store.get("lp.ws.opts", {})),
+    o: Object.assign({ subject: "math", grade: "4", topic: "", focus: "", skills: ["mult_facts", "div_facts"], types: ["compute"], count: 20, difficulty: 1, versions: 1, leveled: false, stacked: true, large: false, key: true, columns: 2, title: "", instructions: "", custom: true, passage: true }, store.get("lp.ws.opts", {})),
     ws: store.get("lp.ws.current", null),
     view: "setup", tab: "preview", ver: 0, ai: false,
   };
@@ -25,7 +45,8 @@ App.views = App.views || {};
   App.openWorksheetFor = (lesson) => {
     W.o.subject = lesson.subject; W.o.grade = lesson.grade; W.o.topic = lesson.topic;
     if (lesson.subject === "math") { W.o.skills = App.defaultSkills(lesson.grade, lesson.topic); W.o.types = ["compute", "word"]; }
-    else W.o.types = ["mc", "fill", "short", "match"];
+    else W.o.types = defTypes(lesson.subject);
+    W.o.focus = "";
     W.o.title = `${lesson.topic} — Practice`; W.view = "setup"; save();
     location.hash = "#/worksheets";
   };
@@ -41,7 +62,8 @@ App.views = App.views || {};
     if (q.get("skills")) o.skills = q.get("skills").split(",").filter((k) => App.MATH_SKILLS[k]);
     if (q.get("topic")) o.topic = q.get("topic");
     if (q.get("types")) o.types = q.get("types").split(",").filter((t) => App.WS_TYPES[t]);
-    else o.types = o.subject === "math" ? ["compute", "word"] : ["mc", "fill", "short", "match"];
+    else o.types = o.subject === "math" ? ["compute", "word"] : defTypes(o.subject);
+    o.focus = (q.get("focus") || "").slice(0, 120);
     o.title = (q.get("title") || "").slice(0, 120); o.leveled = false; o.versions = 1;
     W.view = "setup"; save();
     history.replaceState(null, "", "#/worksheets");
@@ -50,7 +72,9 @@ App.views = App.views || {};
   App.views.worksheets = (el) => { view = el; if (!el._wsBound) bind(el); const go = applyPreset(); render(); if (go) create(); };
 
   const isMath = () => W.o.subject === "math";
-  const allowedTypes = () => (isMath() ? ["compute", "word", "mc", "work"] : ["mc", "short", "fill", "tf", "match", "work"]).map((k) => [k, App.WS_TYPES[k]]);
+  function defTypes(subject) { return subject === "science" ? ["mc", "short", "work", "diagram", "graph"] : ["mc", "fill", "short", "match"]; }
+  const sciPassage = () => isSci() && W.ai && W.o.custom && W.o.passage;
+  const allowedTypes = () => (isMath() ? ["compute", "word", "mc", "work"] : sciPassage() ? ["mc", "short", "fill", "tf", "match", "work", "diagram", "graph"] : ["mc", "short", "fill", "tf", "match", "work"]).map((k) => [k, App.WS_TYPES[k]]);
 
   function render() {
     if (!view) return;
@@ -73,12 +97,12 @@ App.views = App.views || {};
           <div class="card"><h2><span class="n">2</span>Math skills</h2><p class="hint">Pick one or more. Problems rotate through the skills you choose. Skills shown are for ${esc(gradeLabel(o.grade))} ± 1 grade.</p>
             <div class="chips">${skills.map(([k, s]) => `<button class="pick ${o.skills.includes(k) ? "on" : ""}" data-ws="skill" data-v="${k}">${esc(s.label)} <small class="muted">· gr ${s.g[0] === 0 ? "K" : s.g[0]}–${s.g[1]}</small></button>`).join("")}</div>
           </div>` : `
-          <div class="card"><h2><span class="n">2</span>Topic</h2>
+          ${isSci() ? sciTopicCard(o) : `<div class="card"><h2><span class="n">2</span>Topic</h2>
             <div class="chips">${topics.map(([name, t]) => `<button class="pick ${name === o.topic ? "on" : ""}" data-ws="topic" data-v="${esc(name)}">${esc(name)} <small class="muted">· gr ${t.grades}</small></button>`).join("")}</div>
             <label class="field mt" for="wsTopic">Or type any topic</label>
             <input class="input" id="wsTopic" data-wsin="topic" value="${esc(o.topic)}" placeholder="e.g. The Oregon Trail, Similes and metaphors, Volcanoes" />
             <p class="hint" id="wsTopicHint" style="margin:8px 0 0">${inLib ? "✅ Ready-made topic: real vocabulary and questions with answers." : W.ai && o.custom ? "✨ Custom topic: we'll write fresh questions and answers for it." : "✏️ Custom topic: you'll get a starter worksheet with ✏️ spots to fill in."}</p>
-          </div>`}
+          </div>`}`}
           <div class="card"><h2><span class="n">3</span>Question types</h2>
             <div class="tiles">${allowedTypes().map(([k, t]) => `<button class="tile wide ${o.types.includes(k) ? "on" : ""}" data-ws="type" data-v="${k}"><span>${esc(t.label)}<small>${esc(t.hint)}</small></span></button>`).join("")}</div>
           </div>
@@ -105,6 +129,7 @@ App.views = App.views || {};
               ${isMath() ? `<label class="toggle"><input type="checkbox" data-wscheck="stacked" ${o.stacked ? "checked" : ""}/> Stacked (vertical) arithmetic</label>
               <label class="toggle">Columns <select class="input" style="width:auto;padding:4px 8px" data-wssel="columns">${[1, 2, 3, 4].map((c) => `<option ${c === +o.columns ? "selected" : ""}>${c}</option>`).join("")}</select></label>` : ""}
               ${!isMath() && W.ai ? `<label class="toggle"><input type="checkbox" data-wscheck="custom" ${o.custom ? "checked" : ""}/> Custom-written questions</label>` : ""}
+              ${isSci() && W.ai && o.custom ? `<label class="toggle"><input type="checkbox" data-wscheck="passage" ${o.passage ? "checked" : ""}/> Reading passage with questions</label>` : ""}
             </div>
           </div>
         </div>
@@ -113,7 +138,7 @@ App.views = App.views || {};
           <dl>
             <dt>Subject</dt><dd>${subj.icon} ${esc(subj.label)}</dd>
             <dt>Grade</dt><dd>${gradeLabel(o.grade)}</dd>
-            <dt>${isMath() ? "Skills" : "Topic"}</dt><dd>${isMath() ? esc(o.skills.map((k) => (App.MATH_SKILLS[k] || {}).label).filter(Boolean).join(", ") || "—") : esc(o.topic || "—")}</dd>
+            <dt>${isMath() ? "Skills" : "Topic"}</dt><dd>${isMath() ? esc(o.skills.map((k) => (App.MATH_SKILLS[k] || {}).label).filter(Boolean).join(", ") || "—") : esc(effTopic(o) || "—")}</dd>
             <dt>Problems</dt><dd id="wsSumCount">${o.count}</dd>
             <dt>Level</dt><dd>${o.leveled ? "3 leveled versions" : ["Easier", "On grade", "Challenge"][o.difficulty] + (o.versions > 1 ? " · A/B" : "")}</dd>
           </dl>
@@ -124,12 +149,34 @@ App.views = App.views || {};
     </div>`;
   }
 
+  function sciTopicCard(o) {
+    const cur = SCI[o.topic];
+    return `<div class="card"><h2><span class="n">2</span>Topic &amp; focus</h2>
+      ${(() => {
+        const g = o.grade === "K" ? 0 : +o.grade, fits = ([, [gr]]) => { const [lo, hi] = gr.split("-").map(Number); return g >= lo - 1 && g <= hi + 1; };
+        const chip = ([name, [gr]]) => `<button class="pick ${name === o.topic ? "on" : ""}" data-ws="topic" data-v="${esc(name)}">${esc(name)} <small class="muted">· gr ${gr}</small></button>`;
+        const all = Object.entries(SCI), yes = all.filter(fits), no = all.filter((x) => !fits(x));
+        return `<p class="hint">Topics for ${esc(gradeLabel(o.grade))} first. Everything is written at this grade's reading level.</p><div class="chips">${yes.map(chip).join("")}</div>${no.length ? `<details class="mt"><summary class="hint">Other grades (${no.length})</summary><div class="chips mt">${no.map(chip).join("")}</div></details>` : ""}`;
+      })()}
+      ${cur ? `<label class="field mt">Focus on</label>
+      <div class="chips"><button class="pick ${!o.focus ? "on" : ""}" data-ws="focus" data-v="">Whole topic</button>${cur[1].map((f) => `<button class="pick ${f === o.focus ? "on" : ""}" data-ws="focus" data-v="${esc(f)}">${esc(f)}</button>`).join("")}</div>` : ""}
+      <label class="field mt" for="wsTopic">Or type any science topic</label>
+      <input class="input" id="wsTopic" data-wsin="topic" value="${esc(SCI[o.topic] ? "" : o.topic)}" placeholder="e.g. Volcanoes of Hawaii, How bats use echolocation" />
+      <p class="hint" style="margin:8px 0 0">${sciPassage() ? "📖 You'll get a reading passage, questions about it, a diagram to complete and a graph." : W.ai ? "Turn on custom-written questions for a reading passage, diagram and graph." : "Starter worksheet."}</p>
+    </div>`;
+  }
+  function passageHtml(ws) {
+    const ps = ws.passage; if (!ps || !ps.paragraphs || !ps.paragraphs.length) return "";
+    return `<div class="passage"><h4>${esc(ps.title || "Reading passage")}</h4>${ps.paragraphs.map((x) => `<p>${esc(x)}</p>`).join("")}</div><h4 class="q-head">Questions</h4>`;
+  }
+
   function paperHtml(ws, v) {
     const probs = v.problems;
     const drill = probs.every((p) => p.type === "compute" && (p.stack || String(p.q).length <= 32));
     const letters = "ABCDEFGH";
     const item = (p, i) => {
       const n = `<b class="wq-n">${i + 1}.</b>`;
+      if (p.type === "diagram" || p.type === "graph") { const pic = App.wsVisualSvg(p); return `<div class="wq vis">${n} ${esc(p.q)}${pic ? `<div class="visual">${pic}</div>` : ""}<div class='lines'>${"<span></span>".repeat(p.type === "graph" ? 4 : 1)}</div></div>`; }
       if (drill && ws.opts.stacked && p.stack) return `<div class="wq stack">${n}<div class="stk"><div>${esc(typeof p.stack[0] === "number" ? p.stack[0].toLocaleString("en-US") : p.stack[0])}</div><div>${esc(p.stack[2])} ${esc(typeof p.stack[1] === "number" ? p.stack[1].toLocaleString("en-US") : p.stack[1])}</div></div></div>`;
       if (p.type === "compute") return `<div class="wq">${n} ${esc(p.q)} <span class="blank"></span></div>`;
       if (p.type === "tf") return `<div class="wq">${n} ${esc(p.q)} <span class="tf">T &nbsp; F</span></div>`;
@@ -146,6 +193,7 @@ App.views = App.views || {};
       <div class="p-head"><div><h3>${esc(ws.title)}</h3><small>${esc(ws.subjectLabel)} · ${esc(gradeLabel(ws.grade))}</small></div>${v.label ? `<span class="p-tag">${esc(v.label)}</span>` : ""}</div>
       <div class="p-name"><span>Name: ________________________</span><span>Date: __________</span></div>
       <p class="p-inst">${esc(ws.instructions)}</p>
+      ${passageHtml(ws)}
       <div class="${drill ? `drill cols-${ws.opts.columns || 2}` : ""}">${probs.map(item).join("")}</div>
     </div>`;
   }
@@ -180,11 +228,14 @@ App.views = App.views || {};
 
   function editHtml(v) {
     const T = App.WS_TYPES;
-    return `<div>${v.problems.map((p, i) => `
+    const ps = W.ws.passage;
+    return `<div>${ps && ps.paragraphs ? `<div class="block" style="--k:#0f1b3d"><div class="block-head"><b>Reading passage</b></div>
+        <label>Title</label><input class="input" data-wspass="title" value="${esc(ps.title)}"/>
+        <label>Passage (blank line between paragraphs)</label><textarea class="input" rows="12" data-wspass="body">${esc(ps.paragraphs.join("\n\n"))}</textarea></div>` : ""}${v.problems.map((p, i) => `
       <div class="block" style="--k:#ff6b2c" data-pid="${p.id}">
         <div class="block-head"><b>${i + 1}.</b><span class="chip">${esc((T[p.type] || {}).label || p.type)}</span>
           <div class="block-tools">
-            <button class="icon-btn" data-ws="p-new" data-v="${i}" title="Replace with a new problem">🎲</button>
+            ${p.type === "diagram" || p.type === "graph" || W.ws.source === "custom" ? "" : `<button class="icon-btn" data-ws="p-new" data-v="${i}" title="Replace with a new problem">🎲</button>`}
             <button class="icon-btn" data-ws="p-up" data-v="${i}" ${i === 0 ? "disabled" : ""}>↑</button>
             <button class="icon-btn" data-ws="p-down" data-v="${i}" ${i === v.problems.length - 1 ? "disabled" : ""}>↓</button>
             <button class="icon-btn" data-ws="p-del" data-v="${i}" title="Delete">🗑</button>
@@ -204,16 +255,24 @@ App.views = App.views || {};
     if (isMath() && !o.skills.length) return toast("Pick at least one math skill.", true);
     if (!isMath() && !o.topic.trim()) return toast("Choose or type a topic first.", true);
     if (!o.types.length) return toast("Pick at least one question type.", true);
+    const passage = sciPassage();
     let ws = App.buildWorksheet(o);
-    const needServer = !isMath() && W.ai && o.custom && !App.findTopic(o.subject, o.topic);
+    ws.topic = effTopic(o);
+    if (!o.title && isSci()) ws.title = `${o.focus || o.topic} — ${passage ? "Reading & Practice" : "Practice"}`;
+    const needServer = !isMath() && W.ai && o.custom && (passage || !App.findTopic(o.subject, o.topic));
     if (needServer) {
-      busy(true, "Writing your questions…");
+      busy(true, passage ? "Writing the passage, questions, diagram and graph… (about a minute)" : "Writing your questions…");
       try {
         if (App.pro && !App.pro.consume()) throw new Error("free monthly limit reached");
-        const r = await fetch("api/worksheet", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ subject: App.SUBJECTS[o.subject].label, grade: o.grade, topic: o.topic, types: o.types, count: o.count, difficulty: o.difficulty, versions: ws.versions.map((x) => x.label || "Version") }) });
+        const r = await fetch("api/worksheet", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ subject: App.SUBJECTS[o.subject].label, grade: o.grade, topic: o.topic, focus: o.focus, passage, types: o.types, count: o.count, difficulty: o.difficulty, versions: ws.versions.map((x) => x.label || "Version") }) });
         if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `status ${r.status}`);
         const j = await r.json();
         (j.versions || []).forEach((pv, i) => { if (ws.versions[i]) ws.versions[i].problems = App.normalizeWorksheetProblems(pv.problems); });
+        if (j.passage && Array.isArray(j.passage.paragraphs) && j.passage.paragraphs.length) {
+          ws.passage = { title: String(j.passage.title || ""), paragraphs: j.passage.paragraphs.map(String) };
+          if (!o.title && ws.passage.title) ws.title = `${ws.passage.title} — Reading & Practice`;
+          if (!o.instructions) ws.instructions = "Read the passage carefully. Then answer the questions. Use details from the passage.";
+        }
         ws.source = "custom";
       } catch (e) { if (App.pro && !/limit reached/.test(e.message)) App.pro.refund(); toast(`Couldn't write custom questions (${e.message}). Made a starter worksheet instead.`, true); }
       busy(false);
@@ -242,10 +301,11 @@ App.views = App.views || {};
       const re = () => { save(); render(); };
       const cur = () => W.ws.versions[W.ver];
       switch (a) {
-        case "subject": o.subject = v; o.topic = v === "math" ? "" : Object.keys(App.SUBJECTS[v].topics)[0]; o.types = v === "math" ? ["compute"] : ["mc", "fill", "short"]; if (v === "math" && !o.skills.length) o.skills = App.defaultSkills(o.grade, ""); re(); break;
+        case "subject": o.subject = v; o.topic = v === "math" ? "" : Object.keys(App.SUBJECTS[v].topics)[0]; o.types = v === "math" ? ["compute"] : defTypes(v); o.focus = ""; if (v === "science") { o.topic = "Ecosystems & food webs"; o.count = 12; } if (v === "math" && !o.skills.length) o.skills = App.defaultSkills(o.grade, ""); re(); break;
         case "grade": o.grade = v; if (isMath()) { const ok = App.skillsForGrade(v).map(([k]) => k); o.skills = o.skills.filter((k) => ok.includes(k)); if (!o.skills.length) o.skills = App.defaultSkills(v, ""); } o.large = ["K", "1", "2"].includes(v) ? true : o.large; re(); break;
         case "skill": o.skills = o.skills.includes(v) ? o.skills.filter((k) => k !== v) : o.skills.concat(v); re(); break;
-        case "topic": o.topic = v; re(); break;
+        case "topic": o.topic = v; o.focus = ""; re(); break;
+        case "focus": o.focus = v; re(); break;
         case "type": o.types = o.types.includes(v) ? o.types.filter((k) => k !== v) : o.types.concat(v); re(); break;
         case "diff": o.difficulty = +v; o.leveled = false; re(); break;
         case "versions": o.versions = +v; o.leveled = false; re(); break;
@@ -256,7 +316,7 @@ App.views = App.views || {};
         case "tab": W.tab = v; render(); break;
         case "ver": W.ver = +v; render(); break;
         case "pdf": case "docx": case "quiz": case "flash": doExport(a); break;
-        case "reroll": { const t = W.ws.title; W.ws = App.buildWorksheet({ ...W.ws.opts, seed: 0 }); W.ws.title = t; save(); render(); toast(W.ws.source === "math" ? "New numbers generated." : "New set generated."); break; }
+        case "reroll": if (W.ws.source === "custom") { W.view = "setup"; create(); break; } { const t = W.ws.title; W.ws = App.buildWorksheet({ ...W.ws.opts, seed: 0 }); W.ws.title = t; save(); render(); toast(W.ws.source === "math" ? "New numbers generated." : "New set generated."); break; }
         case "to-lesson": {
           const lesson = store.get("lp.current", null); if (!lesson) break;
           const add = cur().problems.filter((p) => p.type !== "match").map((p) => ({ q: p.type === "mc" ? `${p.q} (${p.choices.map((c, k) => `${"ABCD"[k]}) ${c}`).join("  ")})` : p.q, a: App.worksheetAnswer(p) }));
@@ -275,6 +335,7 @@ App.views = App.views || {};
       if (t.dataset.wsin) { W.o[t.dataset.wsin] = t.value; save(); if (t.dataset.wsin === "topic") { document.querySelectorAll('[data-ws="topic"]').forEach((c) => c.classList.toggle("on", c.dataset.v === t.value)); const h = $("#wsTopicHint"); if (h) h.textContent = App.findTopic(W.o.subject, t.value) ? "✅ Ready-made topic: real vocabulary and questions with answers." : W.ai && W.o.custom ? "✨ Custom topic: we'll write fresh questions and answers for it." : "✏️ Custom topic: you'll get a starter worksheet with ✏️ spots to fill in."; } return; }
       if (t.dataset.wsrange) { W.o.count = +t.value; $("#wsCount").textContent = t.value; $("#wsSumCount").textContent = t.value; save(); return; }
       if (t.dataset.wsedit === "title") { W.ws.title = t.value; save(); return; }
+      if (t.dataset.wspass && W.ws.passage) { if (t.dataset.wspass === "title") W.ws.passage.title = t.value; else W.ws.passage.paragraphs = t.value.split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean); save(); return; }
       if (t.dataset.wsp != null) {
         const p = W.ws.versions[W.ver].problems[+t.dataset.wsp];
         if (t.dataset.pair != null) p.pairs[+t.dataset.pair][t.dataset.f] = t.value;
@@ -286,7 +347,7 @@ App.views = App.views || {};
     el.addEventListener("change", (e) => {
       if (!location.hash.startsWith("#/worksheets")) return;
       const t = e.target;
-      if (t.dataset.wscheck) { W.o[t.dataset.wscheck] = t.checked; save(); if (t.dataset.wscheck === "custom") render(); }
+      if (t.dataset.wscheck) { W.o[t.dataset.wscheck] = t.checked; save(); if (["custom", "passage"].includes(t.dataset.wscheck)) render(); }
       if (t.dataset.wssel) { W.o[t.dataset.wssel] = +t.value; save(); }
       if (t.dataset.f === "choices") { const p = W.ws.versions[W.ver].problems[+t.dataset.wsp]; p.choices = p.choices.map((c) => c.trim()).filter(Boolean); save(); }
     });
