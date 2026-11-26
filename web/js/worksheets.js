@@ -327,7 +327,7 @@ window.App = window.App || {};
       para(ws.instructions, M, CW, fs - 1, "italic"); y += 8;
       if (ws.passage && ws.passage.paragraphs && ws.passage.paragraphs.length) {
         need(60); setF(fs + 3, "bold", [15, 27, 61]); doc.text(safe(ws.passage.title || "Reading passage"), M, y + fs + 2); y += fs + 14;
-        ws.passage.paragraphs.forEach((pg) => { setF(fs); doc.splitTextToSize(safe(pg), CW).forEach((ln) => { need(fs * 1.5); doc.text(ln, M, y + fs); y += fs * 1.45; }); y += 8; });
+        ws.passage.paragraphs.forEach((pg) => { setF(fs); doc.splitTextToSize(safe(pg.replace(/\*\*/g, "")), CW).forEach((ln) => { need(fs * 1.5); doc.text(ln, M, y + fs); y += fs * 1.45; }); y += 8; });
         need(40); doc.setDrawColor(255, 107, 44); doc.line(M, y, W - M, y); y += 14;
         setF(fs, "bold", [15, 27, 61]); doc.text("Questions", M, y + fs); y += fs + 12;
       }
@@ -438,7 +438,7 @@ window.App = window.App || {};
       children.push(P(ws.instructions, { italic: true, after: 240 }));
       if (ws.passage && ws.passage.paragraphs && ws.passage.paragraphs.length) {
         children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(ws.passage.title || "Reading passage")] }));
-        ws.passage.paragraphs.forEach((pg) => children.push(P(pg, { after: 160 })));
+        ws.passage.paragraphs.forEach((pg) => children.push(new Paragraph({ spacing: { after: 160 }, children: pg.split(/\*\*/).map((t, k) => new TextRun({ text: t, bold: k % 2 === 1 })) })));
         children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun("Questions")] }));
       }
       v.problems.forEach((p, i) => {

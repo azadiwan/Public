@@ -95,7 +95,7 @@ export default async function handler(req, res) {
       nGraph ? GRAPH_RULES : "",
       `For every non-diagram, non-graph problem set diagram.kind "none", graph.mode "none", and leave their arrays empty and strings empty.`,
       `Difficulty: ${["slightly below grade level", "on grade level", "challenging for this grade"][+o.difficulty || 1]}.`,
-      "Every problem needs a correct, concise answer a teacher can grade from. Use empty arrays for choices/pairs when not used and a one-sentence explanation. No student names from real people.",
+      "Every problem needs a correct, concise answer a teacher can grade from. Use empty arrays for choices/pairs when not used and a one-sentence explanation. No student names from real people. Write plain text: you may mark vocabulary words in the passage with **double asterisks**, but use no other markdown.",
     ] : [
       `Write a printable student practice worksheet for ${grade} ${subject} on the topic: ${topic}.`,
       `Make ${versions.length} version(s) with these labels, in order: ${versions.join(" | ")}.`,
