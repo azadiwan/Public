@@ -167,7 +167,7 @@ App.views = App.views || {};
   }
   function passageHtml(ws) {
     const ps = ws.passage; if (!ps || !ps.paragraphs || !ps.paragraphs.length) return "";
-    return `<div class="passage"><h4>${esc(ps.title || "Reading passage")}</h4>${ps.paragraphs.map((x) => `<p>${esc(x)}</p>`).join("")}</div><h4 class="q-head">Questions</h4>`;
+    return `<div class="passage"><h4>${esc(ps.title || "Reading passage")}</h4>${ps.paragraphs.map((x) => `<p>${esc(x).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")}</p>`).join("")}</div><h4 class="q-head">Questions</h4>`;
   }
 
   function paperHtml(ws, v) {

@@ -37,7 +37,7 @@ window.App = window.App || {};
     if (!words || !words.length) return { h: 0, body: "" };
     const per = Math.min(4, words.length), rows = Math.ceil(words.length / per), cw = (W - 60) / per;
     let body = `<rect x="20" y="${y}" width="${W - 40}" height="${34 + rows * 26}" rx="8" fill="#f8fafc" stroke="${SOFT}"/>` + text(36, y + 22, "Word bank", { size: 13, bold: true, anchor: "start", fill: NAVY });
-    words.forEach((w, i) => { body += text(30 + cw * (i % per) + cw / 2, y + 48 + Math.floor(i / per) * 26, w, { size: 14 }); });
+    words.forEach((w, i) => { body += text(30 + cw * (i % per) + cw / 2, y + 48 + Math.floor(i / per) * 26, w, { size: w.length > 22 ? 11 : w.length > 16 ? 12.5 : 14 }); });
     return { h: 44 + rows * 26, body };
   }
 
@@ -75,7 +75,12 @@ window.App = window.App || {};
   const fmt = (v) => (Math.abs(v) >= 1000 ? v.toLocaleString("en-US") : String(+v.toFixed(2)));
   function graph(g) {
     const pts = g.points.slice(0, 10), plot = g.mode === "plot";
-    const maxY = Math.max(...pts.map((p) => p.y), 1), step = niceStep(maxY), top = Math.ceil(maxY / step) * step || step, ticks = Math.round(top / step);
+    const maxY = Math.max(...pts.map((p) => p.y), 1), minY = Math.min(...pts.map((p) => p.y));
+    // Line graphs of values far from zero (e.g. temperatures 28-31) start the axis near the data so changes are readable; bars always start at 0.
+    const zoom = g.chart === "line" && minY > 0 && minY > maxY * 0.4;
+    const step = zoom ? niceStep((maxY - minY) * 1.25 || 1) : niceStep(maxY);
+    const lo = zoom ? Math.max(0, Math.floor(minY / step) * step - step) : 0;
+    const top = Math.max(lo + step, Math.ceil(maxY / step) * step), ticks = Math.round((top - lo) / step);
     let body = "", y0 = 10;
     if (plot) { // data table above the blank grid
       const cw = Math.min(110, (W - 160) / pts.length), tx = (W - (130 + cw * pts.length)) / 2;
@@ -87,7 +92,7 @@ window.App = window.App || {};
     }
     if (g.title) { body += text(W / 2, y0 + 16, g.title, { size: 15, bold: true, fill: NAVY }); y0 += 26; }
     const L = 86, R = W - 24, T = y0 + 10, B = T + 250, pw = R - L, ph = B - T, slot = pw / pts.length;
-    for (let k = 0; k <= ticks; k++) { const y = B - (ph * k) / ticks; body += `<line x1="${L}" y1="${y}" x2="${R}" y2="${y}" stroke="${SOFT}"/>` + text(L - 8, y + 4, fmt(step * k), { size: 12, anchor: "end" }); }
+    for (let k = 0; k <= ticks; k++) { const y = B - (ph * k) / ticks; body += `<line x1="${L}" y1="${y}" x2="${R}" y2="${y}" stroke="${SOFT}"/>` + text(L - 8, y + 4, fmt(lo + step * k), { size: 12, anchor: "end" }); }
     if (plot) for (let k = 0; k <= ticks * 2; k++) { const y = B - (ph * k) / (ticks * 2); body += `<line x1="${L}" y1="${y}" x2="${R}" y2="${y}" stroke="${SOFT}" stroke-dasharray="2 3"/>`; }
     pts.forEach((p, i) => {
       const cx = L + slot * (i + 0.5);
@@ -95,7 +100,7 @@ window.App = window.App || {};
       body += lines(cx, B + 22, wrap(p.x, 12, 2), { size: 12 });
     });
     if (!plot) {
-      const yOf = (v) => B - (ph * v) / top;
+      const yOf = (v) => B - (ph * (v - lo)) / (top - lo);
       if (g.chart === "line") {
         body += `<polyline points="${pts.map((p, i) => `${L + slot * (i + 0.5)},${yOf(p.y)}`).join(" ")}" fill="none" stroke="${ORANGE}" stroke-width="3"/>`;
         body += pts.map((p, i) => `<circle cx="${L + slot * (i + 0.5)}" cy="${yOf(p.y)}" r="5" fill="${NAVY}"/>`).join("");
